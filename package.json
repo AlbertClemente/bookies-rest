@@ -1,0 +1,25 @@
+{
+  "name": "bookies",
+  "version": "1.0.0",
+  "description": "An online bookstore with Node.js API Rest.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Albert Clemente",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "connect-multiparty": "^2.2.0",
+    "express": "^4.16.4",
+    "jwt-simple": "^0.5.5",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.13",
+    "mongoose-pagination": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
