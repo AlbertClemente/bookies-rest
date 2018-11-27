@@ -11,6 +11,7 @@ var BookSchema = Schema({
         publisher: String,
         numPages: Number,
         genre: String,
+        price: Number,
         author: {type: Schema.ObjectId, ref: 'Author'}
 });
 
