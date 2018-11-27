@@ -6,6 +6,7 @@ var app = express();
 
 //cargar rutas
 var user_routes = require('./routes/user');
+var author_routes = require('./routes/author');
 
 //Convertir a objetos json
 app.use(bodyParser.urlencoded({extended: false}));
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 //rutas base
 app.use('/api', user_routes);
+app.use('/api', author_routes);
 
 /*
 app.get('/pruebas', function(req, res){
