@@ -153,17 +153,17 @@ function uploadImgBook(req, res){
 }
 
 function getImageFile(req, res){
-  var imageFile = req.params.imageFile;
-  var path_file = './uploads/books/' + imageFile;
+    var imageFile = req.params.imageFile;
+    var path_file = './uploads/books/' + imageFile;
 
-  fs.exists(path_file, function(exists){
-      if(exists){
-              res.sendFile(path.resolve(path_file));
-      }
-      else{
-              res.status(404).send({message: 'No existe el archivo.'}); 
-      }
-  });
+    fs.exists(path_file, function(exists){
+        if(exists){
+            res.sendFile(path.resolve(path_file));
+        }
+        else{
+            res.status(404).send({message: 'No existe el archivo.'}); 
+        }
+    });
 }
 
 
