@@ -8,11 +8,11 @@ var jwt = require('../services/jwt');
 
 
 
-function pruebas(req, res){
+/*function pruebas(req, res){
         res.status(200).send({
                 message: 'Probando una acción del controlador de usuarios del API REST de Bookies con Mongo y Node.js.'
         });
-}
+}*/
 
 function saveUser(req, res){
         var user = new User();
@@ -164,7 +164,6 @@ function getImageFile(req, res){
 }
 
 module.exports = {
-        pruebas,
         saveUser,
         loginUser,
         updateUser,

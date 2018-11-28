@@ -13,6 +13,8 @@ api.get('/author/:id', md_auth.ensureAuth, AuthorController.getAuthor);
 api.get('/authors/:page?', md_auth.ensureAuth, AuthorController.getAuthors);
 api.post('/author', md_auth.ensureAuth, AuthorController.saveAuthor);
 api.put('/update-author/:id', md_auth.ensureAuth, AuthorController.updateAuthor);
-
+api.delete('/delete-author/:id', md_auth.ensureAuth, AuthorController.deleteAuthor);
+api.post('/upload-image-author/:id', [md_auth.ensureAuth, md_upload], AuthorController.uploadImgAuthor);
+api.get('/get-image-author/:imageFile', AuthorController.getImageFile);
 
 module.exports = api;
