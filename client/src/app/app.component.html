@@ -1,0 +1,48 @@
+<h1>Bookies</h1>
+<div *ngIf="identity" class="container">
+  <div class="col-12">
+      <p>Estás logueado.</p>
+  </div>
+</div>
+
+<div *ngIf="!identity" class="container">
+  <div class="col-12">
+    <h2>Login</h2>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="email" #userEmail="ngModel" name="userEmail" [(ngModel)]="user.email" class="form-control" id="userEmail" placeholder="Correo electrónico" required>
+      </div>
+      <div class="form-group">
+        <input type="password" #userPass="ngModel" name="userPass" [(ngModel)]="user.password" class="form-control" id="userPass" placeholder="Contraseña" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+  </div>
+
+  <div class="col-12">
+      <h2>Registrarse</h2>
+      <form #registerForm="ngForm">
+        <div class="form-group">
+          <input type="text" class="form-control" id="regName" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="regSurname" placeholder="Apellidos">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="regUsername" placeholder="Nombre de usuario">
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" id="regEmail" placeholder="Correo electrónico">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="regPassword" placeholder="Contraseña">
+        </div>
+        <div class="form-group">
+            <label for="regImageProfile">Sube tu imagen de perfil</label>
+            <input type="file" class="form-control-file" id="regImageProfile">
+        </div>
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+      </form>
+    </div>
+</div>
+
