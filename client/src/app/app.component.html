@@ -1,13 +1,19 @@
 <h1>Bookies</h1>
-<div *ngIf="identity" class="container">
+<div *ngIf="idUser" class="container">
   <div class="col-12">
       <p>Estás logueado.</p>
+      <p>Hola {{idUser.name}} ({{idUser.email}})</p>
+      <button type="button" class="btn btn-danger" (click)="logout()">Cerrar sesión</button>
   </div>
 </div>
 
-<div *ngIf="!identity" class="container">
-  <div class="col-12">
+<div *ngIf="!idUser" class="container">
+  <div class="col-12 mb-4">
     <h2>Login</h2>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      <h4>Error:</h4>
+      <p>{{errorMessage.error.message}}</p>
+    </div>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <input type="email" #userEmail="ngModel" name="userEmail" [(ngModel)]="user.email" class="form-control" id="userEmail" placeholder="Correo electrónico" required>
@@ -19,7 +25,7 @@
     </form>
   </div>
 
-  <div class="col-12">
+  <div class="col-12 mb-4">
       <h2>Registrarse</h2>
       <form #registerForm="ngForm">
         <div class="form-group">
