@@ -1,0 +1,16 @@
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+  <h4>Error:</h4>
+  <p>{{errorMessage.error.message}}</p>
+</div>
+
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Por favor, inicia sesión</h1>
+  <div class="form-group">
+    <input type="email" #userEmail="ngModel" name="userEmail" [(ngModel)]="user.email" class="form-control" id="userEmail" placeholder="Correo electrónico" required>
+  </div>
+  <div class="form-group">
+    <input type="password" #userPass="ngModel" name="userPass" [(ngModel)]="user.password" class="form-control" id="userPass" placeholder="Contraseña" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+</form>

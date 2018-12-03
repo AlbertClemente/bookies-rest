@@ -1,0 +1,39 @@
+<div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="okMessage">
+    <h4>Aviso:</h4>
+    <p>{{okMessage}}</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+    <h4>Error:</h4>
+    <p>{{errorMessage.error.message}}</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form #registerForm="ngForm" (ngSubmit)="onSubmitRegister()">
+  <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Date de alta como usuario</h1>
+  <div class="form-group">
+      <input type="text" #regName="ngModel" name="regName" [(ngModel)]="userSignUp.name" class="form-control" id="regName" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+        <input type="text" #regSurname="ngModel" name="regSurname" [(ngModel)]="userSignUp.surname" class="form-control" id="regSurname" placeholder="Apellidos">
+    </div>
+    <div class="form-group">
+        <input type="text" #regUsername="ngModel" name="regUsername" [(ngModel)]="userSignUp.username" class="form-control" id="regUsername" placeholder="Nombre de usuario">
+    </div>
+    <div class="form-group">
+        <input type="email" #regEmail="ngModel" name="regEmail" [(ngModel)]="userSignUp.email" class="form-control" id="regEmail" placeholder="Correo electrónico">
+    </div>
+    <div class="form-group">
+        <input type="password" #regPassword="ngModel" name="regPassword" [(ngModel)]="userSignUp.password" class="form-control" id="regPassword" placeholder="Contraseña">
+    </div>
+    <div class="form-group">
+        <label for="regImageProfile">Sube tu imagen de perfil</label>
+        <input type="file" class="form-control-file" id="regImageProfile">
+    </div>
+    <button type="submit" class="btn btn-primary">Registrarse</button>
+</form>

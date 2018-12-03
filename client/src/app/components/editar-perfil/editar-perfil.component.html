@@ -1,0 +1,24 @@
+<form #editForm="ngForm" (ngSubmit)="onSubmitEdit()">
+    <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Editar perfil</h1>
+    <div class="form-group">
+        <input type="text" class="form-control" id="regName" placeholder="Nombre">
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" id="regSurname" placeholder="Apellidos">
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" id="regUsername" placeholder="Nombre de usuario">
+      </div>
+      <div class="form-group">
+          <input type="email" class="form-control" id="regEmail" placeholder="Correo electrónico">
+      </div>
+      <div class="form-group">
+          <input type="password" class="form-control" id="regPassword" placeholder="Contraseña">
+      </div>
+      <div class="form-group">
+          <label for="regImageProfile">Sube tu imagen de perfil</label>
+          <input type="file" class="form-control-file" id="regImageProfile">
+      </div>
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+  </form>

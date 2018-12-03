@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(private _http: HttpClient) {}
 
-  signUp(userLogin, gethash = null) {
+  signIn(userLogin, gethash = null) {
     if (gethash != null) {
       userLogin.gethash = gethash;
     }
@@ -27,8 +27,16 @@ export class UserService {
     return this._http.post(this.apiURL + 'login/', params, {headers: headers});
   }
 
+  signUp(userRegister) {
+    const json = JSON.stringify(userRegister);
+    const params = json;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this._http.post(this.apiURL + 'register/', params, {headers: headers});
+  }
+
   public getIdUser() {
-    let idUser = JSON.parse(localStorage.getItem('idUser'));
+    const idUser = JSON.parse(localStorage.getItem('idUser'));
     if (idUser !== undefined) {
       this.idUser = idUser;
     } else {
@@ -38,8 +46,8 @@ export class UserService {
   }
 
   public getHash() {
-    let hash = JSON.parse(localStorage.getItem('hash'));
-    if(hash !== undefined) {
+    const hash = JSON.parse(localStorage.getItem('hash'));
+    if (hash !== undefined) {
       this.hash = hash;
     } else {
       this.hash = null;
