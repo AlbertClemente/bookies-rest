@@ -1,0 +1,17 @@
+<div class="col-12 mb-4" *ngIf="!idUser">
+  <h2>Login</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+    <h4>Error:</h4>
+    <p>{{errorMessage.error.message}}</p>
+  </div>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input type="email" #userEmail="ngModel" name="userEmail" [(ngModel)]="user.email" class="form-control" id="userEmail" placeholder="Correo electrónico" required>
+    </div>
+    <div class="form-group">
+      <input type="password" #userPass="ngModel" name="userPass" [(ngModel)]="user.password" class="form-control" id="userPass" placeholder="Contraseña" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+  </form>
+  <a routerLink="/register">¿No tienes cuenta todavía? Registrate ahora.</a>
+</div>

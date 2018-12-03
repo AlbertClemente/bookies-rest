@@ -1,0 +1,34 @@
+<div class="col-12 mb-4" *ngIf="idUser">
+  <h2>Edita tus datos</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+    <h4>Error:</h4>
+    <p>{{errorMessage.error.message}}</p>
+  </div>
+  <div *ngIf="okMessage" class="alert alert-success" role="alert">
+    <h4>Info:</h4>
+    <p>{{okMessage}}</p>
+  </div>
+  <form #editForm="ngForm" (ngSubmit)="onSubmitEdit()">
+    <img src="{{apiURL + 'get-image-user/' + user.image}}" width="200" height="200" class="d-inline-block align-top" alt="">
+    <div class="form-group">
+      <input type="text" class="form-control" #userEditName="ngModel" name="userEditName" [(ngModel)]="user.name" id="userEditName" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" #userEditSurname="ngModel" name="userEditSurname" [(ngModel)]="user.surname" id="userEditSurname" placeholder="Apellidos">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" #userEditUsername="ngModel" name="userEditUsername" [(ngModel)]="user.username" id="userEditUsername" placeholder="Nombre de usuario">
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" #userEditEmail="ngModel" name="userEditEmail" [(ngModel)]="user.email" id="userEditEmail" placeholder="Correo electrónico">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" #userEditPass="ngModel" name="userEditPass" [(ngModel)]="user.password" id="userEditPass" placeholder="Contraseña">
+    </div>
+    <div class="form-group">
+      <label for="userEditUserPic">Cambia tu imagen de perfil</label>
+      <input type="file" class="form-control-file" id="userEditUserPic" (change)="fileChangeEvent($event)">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+  </form>
+</div>
