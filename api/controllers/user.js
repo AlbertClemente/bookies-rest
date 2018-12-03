@@ -15,16 +15,16 @@ var jwt = require('../services/jwt');
 }*/
 
 function saveUser(req, res){
-        var user = new User();
-        var params = req.body;
+	var user = new User();
+	var params = req.body;
 
-        console.log(params);
-        user.name = params.name;
-        user.surname = params.surname;
-        user.username = params.username;
-        user.email = params.email;
-        user.role = 'ROLE_ADMIN';
-        user.image = 'null';
+	console.log(params);
+	user.name = params.name;
+	user.surname = params.surname;
+	user.username = params.username;
+	user.email = params.email;
+	user.role = 'ROLE_ADMIN';
+	user.image = 'null';
 
         if(params.password){
                 //Encriptar contraseña
@@ -57,116 +57,119 @@ function saveUser(req, res){
 }
 
 function loginUser(req, res){
-        var params = req.body;
+	var params = req.body;
 
-        var email = params.email;
-        var password = params.password;
+	var email = params.email;
+	var password = params.password;
 
-        User.findOne({email: email.toLowerCase()}, (err, user) =>{
-                if(err){
-                        res.status(500).send({message: 'Error en la petición.'});
-                }
-                else{
-                        if(!user){
-                                res.status(404).send({message: 'Error: el usuario no existe'});
-                        }
-                        else{
-                                //Comprobar contraseña
-                                bcrypt.compare(password, user.password, (err, check) => {
-                                        if(check){
-                                                //Devolver los datos del usuario logeado
-                                                if(params.gethash){
-                                                        //Devolver token JWT
-                                                        res.status(200).send({
-                                                                token: jwt.createToken(user)
-                                                        });
-                                                }
-                                                else{
-                                                        res.status(200).send({user});        
-                                                }
-                                        }
-                                        else{
-                                                res.status(404).send({message: 'Error: la contraseña es incorrecta. El usuario no ha podido logearse.'});
-                                        }
-                                });
-                        }
-                }
-        });
+	User.findOne({email: email.toLowerCase()}, (err, user) =>{
+		if(err){
+			res.status(500).send({message: 'Error en la petición.'});
+		}
+		else{
+			if(!user){
+				res.status(404).send({message: 'Error: el usuario no existe'});
+			}
+			else{
+				//Comprobar contraseña
+				bcrypt.compare(password, user.password, (err, check) => {
+					if(check){
+						//Devolver los datos del usuario logeado
+						if(params.gethash){
+							//Devolver token JWT
+							res.status(200).send({
+									token: jwt.createToken(user)
+							});
+						}
+						else{
+							res.status(200).send({user});        
+						}
+					}
+					else{
+						res.status(404).send({message: 'Error: la contraseña es incorrecta. El usuario no ha podido logearse.'});
+					}
+				});
+			}
+		}
+	});
 }
 
 function updateUser(req, res){
-        var userId = req.params.id;
-        var update = req.body;
+	var userId = req.params.id;
+	var update = req.body;
 
-        User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
-                if(err){
-                        res.status(500).send({message: 'Error al actualizar el usuario.'}); 
-                }
-                else{
-                        if(!userUpdated){
-                                res.status(404).send({message: 'No se ha podido actualizar el usuario.'}); 
-                        }
-                        else{
-                                res.status(200).send({user: userUpdated}); 
-                        }
-                }
-        });
+	if(userId != req.user.sub){
+		return res.status(500).send({message: 'Operación denegada: no se pueden actualizar los datos de este usuario.'}); 
+	}
+
+	User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+		if(err){
+			res.status(500).send({message: 'Error al actualizar el usuario.'}); 
+		}
+		else{
+			if(!userUpdated){
+				res.status(404).send({message: 'No se ha podido actualizar el usuario.'}); 
+			}
+			else{
+				res.status(200).send({user: userUpdated}); 
+			}
+		}
+	});
 }
 
 function uploadImgs(req, res){
-        var userId = req.params.id;
-        var file_name = 'Imagen no subida.';
+	var userId = req.params.id;
+	var file_name = 'Imagen no subida.';
 
-        if(req.files){
-                var file_path = req.files.image.path;
-                var file_split = file_path.split('\/');
-                var file_name = file_split[2];
-                var extension_split = file_name.split('\.');
-                var extension_name = extension_split[1];
-                
-                if(extension_name == 'png' || extension_name == 'jpg' || extension_name == 'gif' ){
-                        User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) => {
-                                if(err){
-                                        res.status(500).send({message: 'Error al actualizar el usuario.'}); 
-                                }
-                                else{
-                                        if(!userUpdated){
-                                                res.status(404).send({message: 'No se ha podido actualizar el usuario.'}); 
-                                        }
-                                        else{
-                                                res.status(200).send({image: file_name, user: userUpdated}); 
-                                        }
-                                }
-                        });
-                }
-                else{
-                        res.status(200).send({message: 'Extensión del archivo no válida.'});
-                }
-
-        }
-        else{
-                res.status(200).send({message: 'No se ha subido ninguna imagen.'});
-        }
+	if(req.files){
+		var file_path = req.files.image.path;
+		var file_split = file_path.split('\/');
+		var file_name = file_split[2];
+		var extension_split = file_name.split('\.');
+		var extension_name = extension_split[1];
+		
+		if(extension_name == 'png' || extension_name == 'jpg' || extension_name == 'gif' ){
+			User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) => {
+				if(err){
+					res.status(500).send({message: 'Error al actualizar el usuario.'}); 
+				}
+				else{
+					if(!userUpdated){
+							res.status(404).send({message: 'No se ha podido actualizar el usuario.'}); 
+					}
+					else{
+							res.status(200).send({image: file_name, user: userUpdated}); 
+					}
+				}
+			});
+		}
+		else{
+			res.status(200).send({message: 'Extensión del archivo no válida.'});
+		}
+	}
+	else{
+		res.status(200).send({message: 'No se ha subido ninguna imagen.'});
+	}
 }
 
 function getImageFile(req, res){
-        var imageFile = req.params.imageFile;
-        var path_file = './uploads/users/' + imageFile;
+	var imageFile = req.params.imageFile;
+	var path_file = './uploads/users/' + imageFile;
 
-        fs.exists(path_file, function(exists){
-                if(exists){
-                        res.sendFile(path.resolve(path_file));
-                }
-                else{
-                        res.status(200).send({message: 'No existe el archivo.'}); 
-                }
-        });
+	fs.exists(path_file, function(exists){
+		if(exists){
+			res.sendFile(path.resolve(path_file));
+		}
+		else{
+			res.status(200).send({message: 'No existe el archivo.'}); 	
+		}
+	});
 }
 
 module.exports = {
-        saveUser,
-        loginUser,
-        updateUser,
-        uploadImgs,
-        getImageFile
+	saveUser,
+	loginUser,
+	updateUser,
+	uploadImgs,
+	getImageFile
 };
