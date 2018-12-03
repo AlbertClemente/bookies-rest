@@ -30,13 +30,13 @@
               <img src="{{apiURL + 'get-image-user/' + idUser.image}}" width="30" height="30" class="d-inline-block align-top" alt="">
               {{idUser.name}} {{idUser.surname}}
           </div>
+          <a class="dropdown-item" routerLink="user-orders">Tus pedidos</a>
+          <a class="dropdown-item" routerLink="user-orders">Tus listas de favoritos</a>
           <a class="dropdown-item" routerLink="edit-user">Editar perfil</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()" href="#">Cerrar sesión</a>
         </div>
       </li>
     </ul>
-
-
   </div>
 </nav>
