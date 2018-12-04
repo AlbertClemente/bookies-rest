@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   public hash;
   public errorMessage;
 
-  constructor(private _userService: UserService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _userService: UserService) {
     this.user = new User('', '', '', '', '', '', 'ROLE_USER', '');
   }
 
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit {
             }
           );
         }
+        this._router.navigate(['/']);
       },
       err => {
         console.log(err);

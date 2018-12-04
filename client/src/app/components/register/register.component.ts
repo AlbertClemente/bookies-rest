@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
   public errorMessage;
   public okMessage;
 
-  constructor(private _userService: UserService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _userService: UserService) {
     this.user = new User('', '', '', '', '', '', 'ROLE_USER', '');
   }
 
@@ -33,6 +34,7 @@ export class RegisterComponent implements OnInit {
           this.okMessage = 'Registro hecho satisfactoriamente.';
           this.user = new User('', '', '', '', '', '', 'ROLE_USER', '');
         }
+        this._router.navigate(['login']);
       },
       err => {
         console.log(err);
