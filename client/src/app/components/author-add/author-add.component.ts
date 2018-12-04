@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { AuthorService } from '../../services/author.service';
+
 import { Author } from '../../models/author.model';
 import { GLOBAL } from '../../services/global';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-author-add',
@@ -14,14 +16,40 @@ export class AuthorAddComponent implements OnInit {
   public hash;
   public apiURL;
   public author: Author;
-  constructor(private _route: ActivatedRoute, private _router: Router, private _userService: UserService) { 
-    this.idUser = this._userService.getIdUser();
-    this.hash = this._userService.getHash();
-    this.apiURL = GLOBAL.url;
-    this.author = new Author('', '', '', '');
+  public authorObject;
+  public errorMessage;
+  public okMessage;
+
+  constructor(
+      private _router: Router,
+      private _userService: UserService,
+      private _authorService: AuthorService
+    ) {
+      this.idUser = this._userService.getIdUser();
+      this.hash = this._userService.getHash();
+      this.apiURL = GLOBAL.url;
+      this.author = new Author('', '', '', '');
    }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+    this._authorService.addAuthor(this.hash, this.author).subscribe(
+      res => {
+        this.authorObject = res;
+        this.author = this.authorObject.author;
+
+        if (!this.author) {
+          this.errorMessage = 'Error en el servidor';
+        } else {
+          this.okMessage = 'Autor creado correctamente';
+          this._router.navigate(['/editar-autor'], this.author._id);
+        }
+
+    }, err => {
+      console.log(err);
+      this.errorMessage = err;
+    });
+  }
 }

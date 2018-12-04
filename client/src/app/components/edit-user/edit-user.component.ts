@@ -41,7 +41,7 @@ export class EditUserComponent implements OnInit {
           alert('El usuario no se ha actualizado correctamente.');
         } else {
           if (!this.filesToUpload) {
-
+            this.errorMessage = 'Error al subir el archivo.';
           } else {
             this.makeFileRequest(this.apiURL + 'upload-image-user/' + this.user._id, [], this.filesToUpload)
             .then(

@@ -1,7 +1,38 @@
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<div class="card-deck mb-3 text-center" *ngIf="idUser && idUser.role === 'ROLE_ADMIN'">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Autores</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">Añadir autor</a>
+        <a href="#" class="list-group-item list-group-item-action">Modificar autor</a>
+        <a href="#" class="list-group-item list-group-item-action">Borrar autor</a>
+      </ul>
+    </div>
+  </div>
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Libros</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">Añadir libro</a>
+        <a href="#" class="list-group-item list-group-item-action">Modificar libro</a>
+        <a href="#" class="list-group-item list-group-item-action">Borrar libro</a>
+      </ul>
+    </div>
+  </div>
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Usuarios</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">Añadir usuario</a>
+        <a href="#" class="list-group-item list-group-item-action">Modificar usuario</a>
+        <a href="#" class="list-group-item list-group-item-action">Borrar usuario</a>
+      </ul>
+    </div>
+  </div>
 </div>

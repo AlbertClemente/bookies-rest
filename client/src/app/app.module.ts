@@ -17,6 +17,7 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { AuthorsListComponent } from './components/authors-list/authors-list.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { AuthorAddComponent } from './components/author-add/author-add.component';
+import { AuthorEditComponent } from './components/author-edit/author-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AuthorAddComponent } from './components/author-add/author-add.component
     EditUserComponent,
     AuthorsListComponent,
     BooksListComponent,
-    AuthorAddComponent
+    AuthorAddComponent,
+    AuthorEditComponent
   ],
   imports: [
     BrowserModule,
