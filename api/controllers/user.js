@@ -26,34 +26,34 @@ function saveUser(req, res){
 	user.role = 'ROLE_USER';
 	user.image = 'null';
 
-        if(params.password){
-                //Encriptar contraseña
-                bcrypt.hash(params.password, null, null, function(err, hash){
-                        user.password = hash;
-                        if(user.username != null && user.name != null && user.surname != null && user.email != null){
-                                //guardar usuario
-                                user.save((err, userStored) => {
-                                        if(err){
-                                                res.status(500).send({message: 'Error al guardar el usuario.'});
-                                        }
-                                        else{
-                                                if(!userStored){
-                                                        res.status(404).send({message: 'No se ha registrado el usuario.'});
-                                                }
-                                                else{
-                                                        res.status(200).send({user: userStored});
-                                                }
-                                        }
-                                });
-                        }
-                        else{
-                                res.status(200).send({message: 'Rellena todos los campos.'});
-                        }
-                });
-        }
-        else{
-                res.status(200).send({message: 'Introduce la contraseña.'});
-        }
+	if(params.password){
+			//Encriptar contraseña
+		bcrypt.hash(params.password, null, null, function(err, hash){
+				user.password = hash;
+				if(user.username != null && user.name != null && user.surname != null && user.email != null){
+					//guardar usuario
+					user.save((err, userStored) => {
+						if(err){
+							res.status(500).send({message: 'Error al guardar el usuario.'});
+						}
+						else{
+							if(!userStored){
+								res.status(404).send({message: 'No se ha registrado el usuario.'});
+							}
+							else{
+								res.status(200).send({user: userStored});
+							}
+						}		
+					});
+				}
+				else{
+					res.status(200).send({message: 'Rellena todos los campos.'});	
+				}
+		});
+	}
+	else{
+		res.status(200).send({message: 'Introduce la contraseña.'});
+	}
 }
 
 function loginUser(req, res){
@@ -135,10 +135,10 @@ function uploadImgs(req, res){
 				}
 				else{
 					if(!userUpdated){
-							res.status(404).send({message: 'No se ha podido actualizar el usuario.'}); 
+						res.status(404).send({message: 'No se ha podido actualizar el usuario.'}); 
 					}
 					else{
-							res.status(200).send({image: file_name, user: userUpdated}); 
+						res.status(200).send({image: file_name, user: userUpdated}); 
 					}
 				}
 			});

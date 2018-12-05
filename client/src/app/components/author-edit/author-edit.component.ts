@@ -45,11 +45,11 @@ export class AuthorEditComponent implements OnInit {
       this._authorService.getAuthor(this.hash, id).subscribe(
         res => {
           if (!res) {
-            alert('El usuario no se ha obtenido correctamente.');
-            this._router.navigate(['/']);
+            this.errorMessage = 'El usuario no se ha obtenido correctamente.';
           } else {
             this.authorObject = res;
             this.author = this.authorObject;
+            console.log(this.author);
           }
         },
         err => {
@@ -68,19 +68,25 @@ export class AuthorEditComponent implements OnInit {
         res => {
           this.authorObject = res;
           this.updateAuthor = this.authorObject.author;
+          
           if (!this.updateAuthor) {
             alert('El autor no se ha actualizado correctamente.');
           } else {
             if (!this.filesToUpload) {
               this.errorMessage = 'Error al subir el archivo.';
             } else {
-              this.makeFileRequest(this.apiURL + 'upload-image-author/' + id, [], this.filesToUpload)
+              this.makeFileRequest(this.apiURL + 'upload-image-author/' + id, [], this.filesToUpload, this.hash, 'image')
               .then(
                 (result: any) => {
                   this.author.image = result.image;
+                  this._router.navigate(['/']);
                   console.log(this.author);
                 }
-              );
+              )
+              .catch(err => {
+                this.errorMessage = err;
+                console.log(err);
+              });
             }
             this.okMessage = 'Tus datos han sido actualizados correctamente.';
           }
@@ -98,15 +104,13 @@ export class AuthorEditComponent implements OnInit {
     console.log(this.filesToUpload);
   }
 
-  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
-    const token = this.hash;
-
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>, token: string, name: string) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
 
       for (let index = 0; index < files.length; index++) {
-        formData.append('image', files[index], files[index].name);
+        formData.append(name, files[index], files[index].name);
       }
 
       // Petición Ajax para subir los archivos

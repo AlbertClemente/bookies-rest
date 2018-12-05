@@ -166,10 +166,10 @@ function getImageFile(req, res){
 
     fs.exists(path_file, function(exists){
         if(exists){
-                res.sendFile(path.resolve(path_file));
+            res.sendFile(path.resolve(path_file));
         }
         else{
-                res.status(404).send({message: 'No existe el archivo.'}); 
+            res.status(404).send({message: 'No existe el archivo.'}); 
         }
     });
 }

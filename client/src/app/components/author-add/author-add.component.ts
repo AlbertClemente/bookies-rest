@@ -21,6 +21,7 @@ export class AuthorAddComponent implements OnInit {
   public okMessage;
 
   constructor(
+      private _route: ActivatedRoute,
       private _router: Router,
       private _userService: UserService,
       private _authorService: AuthorService
@@ -37,14 +38,12 @@ export class AuthorAddComponent implements OnInit {
   onSubmit() {
     this._authorService.addAuthor(this.hash, this.author).subscribe(
       res => {
-        this.authorObject = res;
-        this.author = this.authorObject.author;
-
-        if (!this.author) {
+        if (!res) {
           this.errorMessage = 'Error en el servidor';
         } else {
           this.okMessage = 'Autor creado correctamente';
-          this._router.navigate(['/editar-autor'], this.author._id);
+          this.authorObject = res;
+          this._router.navigate(['/author-edit'], this.authorObject._id);
         }
 
     }, err => {
