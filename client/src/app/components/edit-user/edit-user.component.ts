@@ -28,7 +28,7 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   onSubmitEdit() {

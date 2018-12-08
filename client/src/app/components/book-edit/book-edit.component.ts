@@ -1,55 +1,79 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { AuthorService } from '../../services/author.service';
+import { BookService } from '../../services/book.service';
+import { AuthorService } from './../../services/author.service';
 
 import { Author } from '../../models/author.model';
+import { Book } from '../../models/book.model';
 import { GLOBAL } from '../../services/global';
 
 @Component({
-  selector: 'app-author-edit',
-  templateUrl: './author-edit.component.html',
-  styleUrls: ['./author-edit.component.css']
+  selector: 'app-book-edit',
+  templateUrl: './book-edit.component.html',
+  styleUrls: ['./book-edit.component.css']
 })
-export class AuthorEditComponent implements OnInit {
+export class BookEditComponent implements OnInit {
   public idUser;
   public hash;
   public apiURL: string;
-  public author: Author;
-  public authorObject;
-  public updateAuthor;
+  public book: Book;
+  public bookObject;
+  public authors: Author;
+  public authorsObject;
+  public updateBook;
   public tokenObject;
   public filesToUpload: Array<File>;
   public errorMessage;
   public okMessage;
 
   constructor(
-      private _router: Router,
-      private _route: ActivatedRoute,
-      private _userService: UserService,
-      private _authorService: AuthorService
-    ) {
-      this.idUser = this._userService.getIdUser();
-      this.hash = this._userService.getHash();
-      this.apiURL = GLOBAL.url;
-      this.author = new Author('', '', '', '');
-   }
-
-  ngOnInit() {
-    this.getAuthor();
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _userService: UserService,
+    private _authorService: AuthorService,
+    private _bookService: BookService
+  ) {
+    this.idUser = this._userService.getIdUser();
+    this.hash = this._userService.getHash();
+    this.apiURL = GLOBAL.url;
+    this.book = new Book('', '', parseInt(''), '', '', parseInt(''), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
   }
 
-  getAuthor() {
+  ngOnInit() {
+    this.getBook();
+    this.getFullAuthorsList();
+  }
+
+  getFullAuthorsList() {
+    this._authorService.getAuthorsFull(this.hash).subscribe(
+      res => {
+        if (!res) {
+          this.errorMessage = 'No se han podido obtener los autores correctamente.';
+        } else {
+          this.authorsObject = res;
+          this.authors = this.authorsObject.authors;
+          console.log(this.authors);
+        }
+      },
+      err => {
+        console.log(err);
+        this.errorMessage = err;
+      }
+    );
+  }
+
+  getBook() {
     this._route.params.forEach((params: Params) => {
       const id = params['id'];
-      this._authorService.getAuthor(this.hash, id).subscribe(
+      this._bookService.getBook(this.hash, id).subscribe(
         res => {
           if (!res) {
-            this.errorMessage = 'El usuario no se ha obtenido correctamente.';
+            this.errorMessage = 'El libro no se ha obtenido correctamente.';
           } else {
-            this.authorObject = res;
-            this.author = this.authorObject.author;
-            console.log(this.author);
+            this.bookObject = res;
+            this.book = this.bookObject.book;
+            console.log(this.book);
           }
         },
         err => {
@@ -60,25 +84,25 @@ export class AuthorEditComponent implements OnInit {
   }
 
   onSubmitEdit() {
-    console.log(this.author);
+    console.log(this.book);
     this._route.params.forEach((params: Params) => {
       const id = params['id'];
 
-      this._authorService.updateAuthor(this.hash, id, this.author).subscribe(
+      this._bookService.updateBook(this.hash, id, this.book).subscribe(
         res => {
-          this.authorObject = res;
-          this.updateAuthor = this.authorObject.author;
+          this.bookObject = res;
+          this.updateBook = this.bookObject.book;
 
-          if (!this.updateAuthor) {
-            this.errorMessage = 'El autor no se ha actualizado correctamente.';
+          if (!this.updateBook) {
+            this.errorMessage = 'El libro no se ha actualizado correctamente.';
           } else {
             if (!this.filesToUpload) {
               this.errorMessage = 'Error al subir el archivo.';
             } else {
-              this.makeFileRequest(this.apiURL + 'upload-image-author/' + id, [], this.filesToUpload, this.hash, 'image')
+              this.makeFileRequest(this.apiURL + 'upload-image-book/' + id, [], this.filesToUpload, this.hash, 'image')
               .then(
                 (result: any) => {
-                  this.author.image = result.image;
+                  this.book.image = result.image;
                 }
               )
               .catch(err => {

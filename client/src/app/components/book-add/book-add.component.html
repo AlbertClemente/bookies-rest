@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-12">
+        <h2>Añadir libro</h2>
+        <div *ngIf="okMessage" class="alert alert-success" role="alert">
+          <h4>Info:</h4>
+          <p>{{okMessage}}</p>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          <h4>Error:</h4>
+          <p>{{errorMessage.error.message}}</p>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-9">
+          <form #addBookForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="bookTitle">Título del libro</label>
+              <input type="text" #bookTitle="ngModel" name="bookTitle" [(ngModel)]="book.title" class="form-control" id="bookTitle" placeholder="Título del libro" required>
+            </div>
+            <div class="form-group">
+                <label for="bookDescription">Descripción del libro</label>
+                <textarea #bookDescription="ngModel" name="bookDescription" [(ngModel)]="book.description" class="form-control" id="bookDescription" placeholder="Descripción del libro" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="bookYear">Año de publicación</label>
+                <input type="text" #bookYear="ngModel" name="bookYear" [(ngModel)]="book.year" class="form-control" id="bookYear" placeholder="Año de publicación del libro" required>
+            </div>
+            <div class="form-group">
+                <label for="bookPublisher">Editorial</label>
+                <input type="text" #bookPublisher="ngModel" name="bookPublisher" [(ngModel)]="book.publisher" class="form-control" id="bookPublisher" placeholder="Editorial" required>
+            </div>
+            <div class="form-group">
+                <label for="bookNumPages">Nº de páginas</label>
+                <input type="text" #bookNumPages="ngModel" name="bookNumPages" [(ngModel)]="book.numPages" class="form-control" id="bookNumPages" placeholder="Nº de páginas" required>
+            </div>
+            <div class="form-group">
+                <label for="bookGenre">Género</label>
+                <input type="text" #bookGenre="ngModel" name="bookGenre" [(ngModel)]="book.genre" class="form-control" id="bookGenre" placeholder="Género del libro" required>
+            </div>
+            <div class="form-group">
+                <label for="bookPrice">Precio oficial</label>
+                <input #bookPrice="ngModel" name="bookPrice" [(ngModel)]="book.price" class="form-control" id="bookPrice" placeholder="Precio sin descuento" required>
+            </div>
+            <div class="form-group">
+                <label for="bookPriceMember">Precio para socios</label>
+                <input type="text" #bookPriceMember="ngModel" name="bookPriceMember" [(ngModel)]="book.priceMember" class="form-control" id="bookPriceMember" placeholder="Precio con descuento" required>
+            </div>
+            <div class="form-group">
+              <label for="bookAuthor">Autor</label>
+              <select class="form-control" id="bookAuthor" #bookAuthor="ngModel" name="bookAuthor" [(ngModel)]="book.author">
+                <option *ngFor="let author of authors" value="{{author._id}}">{{author.name}} {{author.surname}}</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Añadir libro</button>
+          </form>
+        </div>
+  </div>
+

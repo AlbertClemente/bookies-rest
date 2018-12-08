@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthorService } from '../../services/author.service';
 
@@ -43,7 +43,8 @@ export class AuthorAddComponent implements OnInit {
         } else {
           this.okMessage = 'Autor creado correctamente';
           this.authorObject = res;
-          this._router.navigate(['/author-edit'], this.authorObject._id);
+          this.author = this.authorObject.author;
+          // this._router.navigate(['/author-edit/'], this.authorObject._id);
         }
 
     }, err => {

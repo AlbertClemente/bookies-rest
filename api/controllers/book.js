@@ -24,31 +24,59 @@ function getBook(req, res){
   }); 
 }
 
+
 function getBooks(req, res){
-  var authorId = req.params.author;
-
-  if(!authorId){
-    //Listar todos los libros de la bd
-    var find = Book.find({}).sort('title');
-  }
-  else{
-    //Listar todos los libros de un mismo autor
-    var find = Book.find({author: authorId}).sort('year');
-  }
-
-  find.populate({path: 'author'}).exec((err, books) => {
-    if(err){
-      res.status(500).send({message: 'Error en la petición.'});
+    if(req.params.page){
+        var page = req.params.page;
     }
     else{
-      if(!books){
-        res.status(404).send({message: 'No existen los libros.'});
-      }
-      else{
-        res.status(200).send({books});
-      }
+        var page = 1;
     }
-  });
+    var itemsPerPage = 8;
+
+    Book.find().sort('title').populate({path: 'author', model: 'Author'}).paginate(page, itemsPerPage, (err, books, total) => {
+        if(err){
+            res.status(500).send({message: 'Error en la petición.'});
+        }
+        else{
+            if(!books){
+                res.status(404).send({message: 'No hay artistas todavía.'});
+            }
+            else{
+                res.status(200).send({
+                    total_items: total,
+                    books: books
+                });
+            }
+        }
+    })
+}
+
+function getBooksByAuthor(req, res){
+    var authorId = req.params.author;
+
+    if(!authorId){
+        //Listar todos los libros de la bd
+        var find = Book.find({}).sort('_id');
+    }
+    else{
+        //Listar todos los libros de un mismo autor
+        var find = Book.find({author: authorId}).sort('_id');
+    }
+
+    find.populate({path: 'author', model: 'Author'}).exec((err, books) => {
+        if(err){
+            res.status(500).send({message: 'Error en la petición.'});
+        }
+        else{
+            if(!books){
+                    res.status(404).send({message: 'No hay libros todavía.'});
+            }
+            else{
+                res.status(200).send({books}); 
+            }
+        }
+    });
 }
 
 function saveBook(req, res){
@@ -56,12 +84,15 @@ function saveBook(req, res){
 
   var params = req.body;
   book.title = params.title;
+  book.description = params.description;
   book.year = params.year;
   book.image = 'null';
   book.publisher = params.publisher;
   book.numPages = params.numPages;
   book.genre = params.genre;
   book.price = params.price;
+  book.priceMember = params.priceMember;
+  book.review = params.review;
   book.author = params.author;
 
   book.save((err, bookStored) => {
@@ -170,6 +201,7 @@ function getImageFile(req, res){
 
 module.exports = {
   getBook,
+  getBooksByAuthor,
   getBooks,
   saveBook,
   updateBook,

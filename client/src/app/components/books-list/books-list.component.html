@@ -1,3 +1,34 @@
-<p>
-  books-list works!
-</p>
+<h1>Listado de libros</h1>
+
+<a class="btn btn-light" *ngIf="idUser && idUser.role === 'ROLE_ADMIN'" routerLink="/book-add">Añadir libro</a>
+<nav>
+  <ul class="pagination justify-content-end">
+    <li class="page-item"><a class="page-link" [routerLink]="['/books', prev_page]">Anterior</a></li>
+    <li class="page-item"><a class="page-link" [routerLink]="['/books', next_page]">Siguiente</a></li>
+  </ul>
+</nav>
+
+<div *ngIf="okMessage" class="alert alert-success" role="alert">
+  <h4>Info:</h4>
+  <p>{{okMessage}}</p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+	<h4>Error:</h4>
+	<p>{{errorMessage.error.message}}</p>
+</div>
+
+<div class="card-columns">
+  <div class="card" *ngFor="let book of books">
+      <img class="card-img-top" src="{{apiURL + 'get-image-book/' + book.image}}" alt="" *ngIf="book.image != 'null'">
+      <img class="card-img-top" src="../../../assets/img/icon-no-image.svg" alt="" *ngIf="book.image == 'null'">
+      <div class="card-body">
+        <h4 class="card-title">{{book.title}}</h4>
+        <p class="card-text">{{book.author.name}} {{book.author.surname}}</p>
+        <p class="card-text">{{book.price}}</p>
+        <a class="btn btn-primary card-link" [routerLink]="['/book', book._id]">Ver libro</a>
+        <div *ngIf="idUser.role === 'ROLE_ADMIN'">
+          <button type="button" class="btn btn-primary card-link" [routerLink]="['/book-edit', book._id]">Editar autor</button>
+          <button type="button" class="btn btn-secondary card-link" (click)="deleteBook(book._id)">Borrar autor</button>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,8 @@ export class Book {
     public numPages: number,
     public genre: string,
     public price: number,
+    public priceMember: number,
+    public review: number,
     public author: string
   ) {}
 }

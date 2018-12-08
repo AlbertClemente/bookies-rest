@@ -1,32 +1,26 @@
-<div class="col-12 mb-4">
-  <h2>Añadir autor</h2>
-  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-    <h4>Error:</h4>
-    <p>{{errorMessage.error.message}}</p>
-  </div>
-  <div *ngIf="okMessage" class="alert alert-success" role="alert">
-    <h4>Info:</h4>
-    <p>{{okMessage}}</p>
-  </div>
-  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-    <h4>Error:</h4>
-    <p>{{errorMessage.error.message}}</p>
-  </div>
-  <form #addAuthorForm="ngForm" (ngSubmit)="onSubmit()">
-    <img src="{{apiURL + 'get-image-author/' + author.image}}" width="200" height="200" class="d-inline-block align-top" alt="">
-    <div class="form-group">
-      <input type="text" #authorName="ngModel" name="authorName" [(ngModel)]="author.name" class="form-control" id="authorName" placeholder="Nombre del autor" required>
+<div class="row">
+  <div class="col-12 mb-4">
+    <h2>Añadir autor</h2>
+    <div *ngIf="okMessage" class="alert alert-success" role="alert">
+      <h4>Info:</h4>
+      <p>{{okMessage}}</p>
     </div>
-    <div class="form-group">
-        <input type="text" #authorSurname="ngModel" name="authorSurname" [(ngModel)]="author.surname" class="form-control" id="authorSurname" placeholder="Apellidos del autor" required>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      <h4>Error:</h4>
+      <p>{{errorMessage.error.message}}</p>
     </div>
-    <div class="form-group">
-        <textarea #authorDescription="ngModel" name="authorDescription" [(ngModel)]="author.description" class="form-control" id="authorDescription" placeholder="Biografia del autor" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="authorImage">Imagen del autor</label>
-        <input type="file" class="form-control-file" id="authorImage" (change)="fileChangeEvent($event)">
+    <form #addAuthorForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" #authorName="ngModel" name="authorName" [(ngModel)]="author.name" class="form-control" id="authorName" placeholder="Nombre del autor" required>
       </div>
-    <button type="submit" class="btn btn-primary">Añadir autor</button>
-  </form>
+      <div class="form-group">
+          <input type="text" #authorSurname="ngModel" name="authorSurname" [(ngModel)]="author.surname" class="form-control" id="authorSurname" placeholder="Apellidos del autor" required>
+      </div>
+      <div class="form-group">
+          <textarea #authorDescription="ngModel" name="authorDescription" [(ngModel)]="author.description" class="form-control" id="authorDescription" placeholder="Biografia del autor" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Añadir autor</button>
+    </form>
+  </div>
 </div>
+

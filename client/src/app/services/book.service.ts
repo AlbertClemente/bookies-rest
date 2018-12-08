@@ -1,13 +1,13 @@
-import { Author } from './../models/author.model';
+import { Book } from './../models/book.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { GLOBAL } from './global';
-@Injectable({
-  providedIn: 'root',
-})
 
-export class AuthorService {
+@Injectable({
+  providedIn: 'root'
+})
+export class BookService {
   public hash;
   public apiURL;
 
@@ -15,61 +15,57 @@ export class AuthorService {
     this.apiURL = GLOBAL.url;
   }
 
-  getAuthors(hash, page) {
+  getBook(hash, id: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': hash
     });
-    return this._http.get(this.apiURL + 'authors/' + page, {headers: headers});
+    return this._http.get(this.apiURL + 'book/' + id, {headers: headers});
   }
 
-  getAuthorsFull(hash) {
+  getBooks(hash, page) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': hash
     });
-    return this._http.get(this.apiURL + 'authors/', {headers: headers});
+    return this._http.get(this.apiURL + 'books/' + page, {headers: headers});
   }
 
-  getAuthor(hash, id: string) {
+  getBooksByAuthor(hash, id) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': hash
     });
-    return this._http.get(this.apiURL + 'author/' + id, {headers: headers});
+    return this._http.get(this.apiURL + 'books/author/' + id, {headers: headers});
   }
 
-  addAuthor(hash, author: Author) {
-    const json = JSON.stringify(author);
+  addBook(hash, book: Book) {
+    const json = JSON.stringify(book);
     const params = json;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': hash
     });
 
-    return this._http.post(this.apiURL + 'author', params, {headers: headers});
+    return this._http.post(this.apiURL + 'book', params, {headers: headers});
   }
 
-  updateAuthor(hash, id: string, author: Author) {
-    const json = JSON.stringify(author);
+  updateBook(hash, id: string, book: Book) {
+    const json = JSON.stringify(book);
     const params = json;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': hash
     });
 
-    return this._http.put(this.apiURL + 'update-author/' + id, params, {headers: headers});
+    return this._http.put(this.apiURL + 'update-book/' + id, params, {headers: headers});
   }
 
-  deleteAuthor(hash, id: string) {
+  deleteBook(hash, id: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': hash
     });
-    return this._http.delete(this.apiURL + 'delete-author/' + id, {headers: headers});
+    return this._http.delete(this.apiURL + 'delete-book/' + id, {headers: headers});
   }
 }
-
-
-
-

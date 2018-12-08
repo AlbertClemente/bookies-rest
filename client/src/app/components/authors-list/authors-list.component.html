@@ -1,3 +1,37 @@
 <h1>Listado de autores</h1>
 
 <a class="btn btn-light" *ngIf="idUser && idUser.role === 'ROLE_ADMIN'" routerLink="/author-add">Añadir autor</a>
+<nav>
+  <ul class="pagination justify-content-end">
+    <li class="page-item"><a class="page-link" [routerLink]="['/authors', prev_page]">Previous</a></li>
+    <li class="page-item"><a class="page-link" [routerLink]="['/authors', next_page]">Next</a></li>
+  </ul>
+</nav>
+
+<div *ngIf="okMessage" class="alert alert-success" role="alert">
+  <h4>Info:</h4>
+  <p>{{okMessage}}</p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+	<h4>Error:</h4>
+	<p>{{errorMessage.error.message}}</p>
+</div>
+
+<div class="card-columns">
+  <div class="card" *ngFor="let author of authors">
+      <img class="card-img-top" src="{{apiURL + 'get-image-author/' + author.image}}" alt="" *ngIf="author.image != 'null'">
+      <img class="card-img-top" src="../../../assets/img/icon-no-image.svg" alt="" *ngIf="author.image == 'null'">
+      <div class="card-body">
+        <h5 class="card-title">{{author.name}} {{author.surname}}</h5>
+        <p class="card-text">{{author.description}}</p>
+        <a class="btn btn-primary card-link" [routerLink]="['/author', author._id]">Ver autor</a>
+        <div *ngIf="idUser.role === 'ROLE_ADMIN'">
+          <button type="button" class="btn btn-primary card-link" [routerLink]="['/author-edit', author._id]">Editar autor</button>
+          <button type="button" class="btn btn-secondary card-link" (click)="deleteAuthor(author._id)">Borrar autor</button>
+        </div>
+    </div>
+</div>
+
+
+
+

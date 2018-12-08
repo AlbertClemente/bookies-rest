@@ -31,7 +31,7 @@ function getAuthors(req, res){
     else{
         var page = 1;
     }
-    var itemsPerPage = 10;
+    var itemsPerPage = 8;
 
     Author.find().sort('name').paginate(page, itemsPerPage, (err, authors, total) => {
         if(err){
@@ -112,7 +112,7 @@ function deleteAuthor(req, res){
                     }
                     else{
                         if(!bookRemoved){
-                            res.status(404).send({message: 'No se ha podido borrar el libro.'}); 
+                            res.status(404).send({message: 'No se ha podido borrar el autor.'}); 
                         }
                         else{
                             res.status(200).send({author: authorRemoved});
