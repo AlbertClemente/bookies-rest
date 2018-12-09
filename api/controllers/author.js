@@ -51,6 +51,22 @@ function getAuthors(req, res){
     })
 }
 
+function getAuthorsFullList(req, res){
+    Author.find().sort('_id').exec((err, authors) => {
+        if(err){
+            res.status(500).send({message: 'Error en la petición.'});
+        }
+        else{
+            if(!authors){
+                res.status(404).send({message: 'No hay artistas todavía.'});
+            }
+            else{
+                res.status(200).send({authors});
+            }
+        }
+    });
+}
+
 function saveAuthor(req, res){
     var author = new Author();
 
@@ -178,6 +194,7 @@ function getImageFile(req, res){
 module.exports = {
     getAuthor,
     getAuthors,
+    getAuthorsFullList,
     saveAuthor,
     updateAuthor,
     deleteAuthor,

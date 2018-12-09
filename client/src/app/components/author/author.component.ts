@@ -26,9 +26,7 @@ export class AuthorComponent implements OnInit {
   public books: Book;
   public authorObject;
   public booksObject;
-  public updateAuthor;
   public tokenObject;
-  public filesToUpload: Array<File>;
   public errorMessage;
   public okMessage;
 
@@ -42,7 +40,6 @@ export class AuthorComponent implements OnInit {
       this.idUser = this._userService.getIdUser();
       this.hash = this._userService.getHash();
       this.apiURL = GLOBAL.url;
-      this.author = new Author('', '', '', '');
    }
 
   ngOnInit() {

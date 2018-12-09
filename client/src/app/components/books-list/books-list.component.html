@@ -19,16 +19,17 @@
 
 <div class="card-columns">
   <div class="card" *ngFor="let book of books">
-      <img class="card-img-top" src="{{apiURL + 'get-image-book/' + book.image}}" alt="" *ngIf="book.image != 'null'">
+      <img class="card-img-top" src="{{apiURL + 'get-image-book/' + book.image}}" alt="{{book.title}}" *ngIf="book.image != 'null'">
       <img class="card-img-top" src="../../../assets/img/icon-no-image.svg" alt="" *ngIf="book.image == 'null'">
       <div class="card-body">
-        <h4 class="card-title">{{book.title}}</h4>
+        <h3 class="card-title">{{book.title}}</h3>
+        <p class="text-muted">({{book.year}})</p>
         <p class="card-text">{{book.author.name}} {{book.author.surname}}</p>
         <p class="card-text">{{book.price}}</p>
-        <a class="btn btn-primary card-link" [routerLink]="['/book', book._id]">Ver libro</a>
+        <a class="btn btn-primary card-link mb-4" [routerLink]="['/book', book._id]">Ver libro</a>
         <div *ngIf="idUser.role === 'ROLE_ADMIN'">
-          <button type="button" class="btn btn-primary card-link" [routerLink]="['/book-edit', book._id]">Editar autor</button>
-          <button type="button" class="btn btn-secondary card-link" (click)="deleteBook(book._id)">Borrar autor</button>
+          <button type="button" class="btn btn-outline-secondary card-link" [routerLink]="['/book-edit', book._id]">Editar libro</button>
+          <button type="button" class="btn btn-outline-warning card-link" (click)="deleteBook(book._id)">Borrar libro</button>
         </div>
     </div>
 </div>

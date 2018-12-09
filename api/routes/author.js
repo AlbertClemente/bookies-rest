@@ -10,6 +10,7 @@ var multiPart = require('connect-multiparty');
 var md_upload = multiPart({uploadDir: './uploads/authors'});
 
 api.get('/author/:id', md_auth.ensureAuth, AuthorController.getAuthor);
+api.get('/authors-list', md_auth.ensureAuth, AuthorController.getAuthorsFullList);
 api.get('/authors/:page?', md_auth.ensureAuth, AuthorController.getAuthors);
 api.post('/author', md_auth.ensureAuth, AuthorController.saveAuthor);
 api.put('/update-author/:id', md_auth.ensureAuth, AuthorController.updateAuthor);

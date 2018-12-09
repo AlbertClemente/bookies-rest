@@ -34,7 +34,7 @@ function getBooks(req, res){
     }
     var itemsPerPage = 8;
 
-    Book.find().sort('title').populate({path: 'author', model: 'Author'}).paginate(page, itemsPerPage, (err, books, total) => {
+    Book.find().sort('year').populate({path: 'author', model: 'Author'}).paginate(page, itemsPerPage, (err, books, total) => {
         if(err){
             res.status(500).send({message: 'Error en la petición.'});
         }
@@ -61,7 +61,7 @@ function getBooksByAuthor(req, res){
     }
     else{
         //Listar todos los libros de un mismo autor
-        var find = Book.find({author: authorId}).sort('_id');
+        var find = Book.find({author: authorId}).sort('year');
     }
 
     find.populate({path: 'author', model: 'Author'}).exec((err, books) => {
@@ -161,11 +161,11 @@ function uploadImgBook(req, res){
       if(extension_name == 'png' || extension_name == 'jpg' || extension_name == 'gif' ){
           Book.findByIdAndUpdate(bookId, {image: file_name}, (err, bookUpdated) => {
               if(err){
-                      res.status(500).send({message: 'Error al actualizar el autor.'}); 
+                      res.status(500).send({message: 'Error al actualizar el libro.'}); 
               }
               else{
                   if(!bookUpdated){
-                      res.status(404).send({message: 'No se ha podido actualizar el autor.'}); 
+                      res.status(404).send({message: 'No se ha podido actualizar el libro.'}); 
                   }
                   else{
                       res.status(200).send({book: bookUpdated}); 

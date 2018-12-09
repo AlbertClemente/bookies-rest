@@ -34,11 +34,12 @@ export class BookAddComponent implements OnInit {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
-    this.book = new Book('', '', parseInt(''), '', '', parseInt(''), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
+    this.book = new Book('', '', parseInt('', 10), '', '', parseInt('', 10), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
+    this.getFullAuthorsList();
   }
 
   ngOnInit() {
-    this.getFullAuthorsList();
+
   }
   getFullAuthorsList() {
     this._authorService.getAuthorsFull(this.hash).subscribe(
@@ -59,6 +60,7 @@ export class BookAddComponent implements OnInit {
   }
 
   onSubmit() {
+
     this._bookService.addBook(this.hash, this.book).subscribe(
       res => {
         if (!res) {
@@ -67,13 +69,21 @@ export class BookAddComponent implements OnInit {
           this.okMessage = 'Libro creado correctamente.';
           this.bookObject = res;
           this.book = this.bookObject.book;
-          // this._router.navigate(['/author-edit/'], this.authorObject._id);
+
+          setTimeout(() => {
+            this._router.navigate(['/book-edit/'], this.book._id);
+          }, 3000);
         }
 
     }, err => {
       console.log(err);
       this.errorMessage = err;
     });
+  }
+
+  priceMember(bookPrice: number) {
+    this.book.priceMember = parseFloat((bookPrice - (bookPrice * 0.2)).toFixed(2));
+    return this.book.priceMember;
   }
 }
 

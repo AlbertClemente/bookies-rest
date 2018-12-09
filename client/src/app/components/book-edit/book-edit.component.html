@@ -56,11 +56,12 @@
               <option *ngFor="let author of authors" value="{{author._id}}">{{author.name}} {{author.surname}}</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Añadir libro</button>
+          <button type="submit" class="btn btn-primary">Editar libro</button>
         </form>
       </div>
       <div class="col-3">
-          <img src="{{apiURL + 'get-image-book/' + book.image}}" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title">
+          <img src="{{apiURL + 'get-image-book/' + book.image}}" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title" *ngIf="book.image != 'null'">
+          <img src="../../../assets/img/icon-no-image.svg" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" *ngIf="book.image == 'null'">
       </div>
 </div>
 

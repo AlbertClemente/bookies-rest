@@ -1,0 +1,20 @@
+<div *ngIf="okMessage" class="alert alert-success" role="alert">
+  <h4>Info:</h4>
+  <p>{{okMessage}}</p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+	<h4>Error:</h4>
+	<p>{{errorMessage.error.message}}</p>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class=text-center>
+      <img src="{{apiURL + 'get-image-book/' + book.image}}" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title" *ngIf="book.image != 'null'">
+      <img src="../../../assets/img/icon-no-image.svg" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title" *ngIf="book.image == 'null'">
+      <h2 class="mt-5 mb-3">{{book.title}}</h2>
+      <h4 class="mt-5 mb-3">{{author.name}} {{author.surname}}</h4>
+      <p class="lead">{{book.description}}</p>
+    </div>
+  </div>
+</div>

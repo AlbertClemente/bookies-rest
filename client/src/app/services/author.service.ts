@@ -28,7 +28,7 @@ export class AuthorService {
       'Content-Type': 'application/json',
       'Authorization': hash
     });
-    return this._http.get(this.apiURL + 'authors/', {headers: headers});
+    return this._http.get(this.apiURL + 'authors-list/', {headers: headers});
   }
 
   getAuthor(hash, id: string) {

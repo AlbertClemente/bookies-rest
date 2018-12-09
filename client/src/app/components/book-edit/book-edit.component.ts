@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { BookService } from '../../services/book.service';
@@ -13,7 +13,7 @@ import { GLOBAL } from '../../services/global';
   templateUrl: './book-edit.component.html',
   styleUrls: ['./book-edit.component.css']
 })
-export class BookEditComponent implements OnInit {
+export class BookEditComponent {
   public idUser;
   public hash;
   public apiURL: string;
@@ -37,13 +37,11 @@ export class BookEditComponent implements OnInit {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
-    this.book = new Book('', '', parseInt(''), '', '', parseInt(''), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
-  }
-
-  ngOnInit() {
+    this.book = new Book('', '', parseInt('', 10), '', '', parseInt('', 10), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
     this.getBook();
     this.getFullAuthorsList();
   }
+
 
   getFullAuthorsList() {
     this._authorService.getAuthorsFull(this.hash).subscribe(
@@ -53,7 +51,6 @@ export class BookEditComponent implements OnInit {
         } else {
           this.authorsObject = res;
           this.authors = this.authorsObject.authors;
-          console.log(this.authors);
         }
       },
       err => {
@@ -73,7 +70,6 @@ export class BookEditComponent implements OnInit {
           } else {
             this.bookObject = res;
             this.book = this.bookObject.book;
-            console.log(this.book);
           }
         },
         err => {
@@ -84,7 +80,6 @@ export class BookEditComponent implements OnInit {
   }
 
   onSubmitEdit() {
-    console.log(this.book);
     this._route.params.forEach((params: Params) => {
       const id = params['id'];
 
@@ -123,7 +118,6 @@ export class BookEditComponent implements OnInit {
 
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload);
   }
 
   makeFileRequest(url: string, params: Array<string>, files: Array<File>, token: string, name: string) {

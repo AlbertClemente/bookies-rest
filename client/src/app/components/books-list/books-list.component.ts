@@ -71,8 +71,6 @@ export class BooksListComponent implements OnInit {
   }
 
   deleteBook(bookId) {
-    console.log(bookId);
-    /*
     this._bookService.deleteBook(this.hash, bookId).subscribe(
       res => {
         if (!res) {
@@ -86,6 +84,6 @@ export class BooksListComponent implements OnInit {
         console.log(err);
         this.errorMessage = err;
       }
-    );*/
+    );
   }
 }

@@ -1,9 +1,8 @@
-import { Book } from './../models/book.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { GLOBAL } from './global';
 
+import { Book } from '../models/book.model';
 @Injectable({
   providedIn: 'root'
 })

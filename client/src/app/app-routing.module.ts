@@ -15,6 +15,7 @@ import { AuthorEditComponent } from './components/author-edit/author-edit.compon
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { BookAddComponent } from './components/book-add/book-add.component';
 import { BookEditComponent } from './components/book-edit/book-edit.component';
+import { BookComponent } from './components/book/book.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'author-add', component: AuthorAddComponent },
   { path: 'author-edit/:id', component: AuthorEditComponent },
   { path: 'author/:id', component: AuthorComponent },
+  { path: 'book/:id', component: BookComponent },
   { path: 'books', component: BooksListComponent },
   { path: 'books/:page', component: BooksListComponent },
   { path: 'book-add', component: BookAddComponent },
