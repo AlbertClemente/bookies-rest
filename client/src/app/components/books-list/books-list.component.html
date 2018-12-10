@@ -27,6 +27,16 @@
         <p class="card-text">{{book.author.name}} {{book.author.surname}}</p>
         <p class="card-text">{{book.price}}</p>
         <a class="btn btn-primary card-link mb-4" [routerLink]="['/book', book._id]">Ver libro</a>
+        <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == false" (click)="addBookToBookmarks(book._id)">
+          <i class="far fa-heart"></i> 
+        </a>
+        <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == true" (click)="removeBookToBookmarks(book._id)">
+          <i class="fas fa-heart"></i>
+        </a>
+
+
+        
+        
         <div *ngIf="idUser.role === 'ROLE_ADMIN'">
           <button type="button" class="btn btn-outline-secondary card-link" [routerLink]="['/book-edit', book._id]">Editar libro</button>
           <button type="button" class="btn btn-outline-warning card-link" (click)="deleteBook(book._id)">Borrar libro</button>

@@ -20,6 +20,7 @@ export class BooksListComponent implements OnInit {
   public page;
   public next_page;
   public prev_page;
+  public bookLike: boolean;
   public errorMessage;
   public okMessage;
   constructor(
@@ -32,6 +33,8 @@ export class BooksListComponent implements OnInit {
       this.apiURL = GLOBAL.url;
       this.next_page = 1;
       this.prev_page = 1;
+
+      this.bookLike = false;
   }
 
   ngOnInit() {
@@ -85,5 +88,15 @@ export class BooksListComponent implements OnInit {
         this.errorMessage = err;
       }
     );
+  }
+
+  addBookToBookmarks(bookId) {
+    this.bookLike = true;
+    console.log(bookId);
+  }
+
+  removeBookToBookmarks(bookId) {
+    this.bookLike = false;
+    console.log(bookId);
   }
 }

@@ -16,6 +16,7 @@ import { BooksListComponent } from './components/books-list/books-list.component
 import { BookAddComponent } from './components/book-add/book-add.component';
 import { BookEditComponent } from './components/book-edit/book-edit.component';
 import { BookComponent } from './components/book/book.component';
+import { ListAddComponent } from './components/list-add/list-add.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'books/:page', component: BooksListComponent },
   { path: 'book-add', component: BookAddComponent },
   { path: 'book-edit/:id', component: BookEditComponent },
+  { path: 'list-add', component: ListAddComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 

@@ -10,7 +10,8 @@ var UserSchema = Schema({
         password: String,
         email: String,
         role: String,
-        image: String
+        image: String,
+        favBooks: Array
 });
 
 module.exports = mongoose.model('User', UserSchema);

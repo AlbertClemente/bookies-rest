@@ -71,7 +71,7 @@ export class BookAddComponent implements OnInit {
           this.book = this.bookObject.book;
 
           setTimeout(() => {
-            this._router.navigate(['/book-edit/'], this.book._id);
+            this._router.navigate(['/book-edit/'], this.bookObject._id);
           }, 3000);
         }
 

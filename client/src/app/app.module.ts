@@ -22,6 +22,7 @@ import { AuthorComponent } from './components/author/author.component';
 import { BookAddComponent } from './components/book-add/book-add.component';
 import { BookEditComponent } from './components/book-edit/book-edit.component';
 import { BookComponent } from './components/book/book.component';
+import { ListAddComponent } from './components/list-add/list-add.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BookComponent } from './components/book/book.component';
     AuthorComponent,
     BookAddComponent,
     BookEditComponent,
-    BookComponent
+    BookComponent,
+    ListAddComponent
   ],
   imports: [
     BrowserModule,

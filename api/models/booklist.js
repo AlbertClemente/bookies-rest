@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var BookListSchema = Schema({
         titleList: String,
         descriptionList: String,
-        creationDate: Date,
+        creationDate: String,
         user: {type: Schema.ObjectId, ref: 'User'}
 });
 
