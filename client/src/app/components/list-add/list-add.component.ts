@@ -5,11 +5,13 @@ import { UserService } from '../../services/user.service';
 import { BookListService } from '../../services/booklist.service';
 import { BookList } from './../../models/book-list.model';
 import { GLOBAL } from '../../services/global';
+
 @Component({
   selector: 'app-list-add',
   templateUrl: './list-add.component.html',
   styleUrls: ['./list-add.component.css']
 })
+
 export class ListAddComponent implements OnInit {
   public idUser;
   public hash;
@@ -29,8 +31,7 @@ export class ListAddComponent implements OnInit {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
-    this.fullDate = new Date();
-    this.bookList = new BookList('', '', this.fullDate.toString(), '');
+    this.bookList = new BookList('', '', '', this.idUser);
  }
 
 ngOnInit() {
@@ -45,6 +46,7 @@ onSubmit() {
         this.okMessage = 'Lista de libros creada correctamente';
         this.bookListObject = res;
         this.bookList = this.bookListObject.bookList;
+        console.log(this.bookList);
         // this._router.navigate(['/author-edit/'], this.authorObject._id);
       }
 

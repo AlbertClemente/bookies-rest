@@ -26,6 +26,7 @@
         <p class="text-muted">({{book.year}})</p>
         <p class="card-text">{{book.author.name}} {{book.author.surname}}</p>
         <p class="card-text">{{book.price}}</p>
+        <p class="card-text">{{book.priceMember}}</p>
         <a class="btn btn-primary card-link mb-4" [routerLink]="['/book', book._id]">Ver libro</a>
         <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == false" (click)="addBookToBookmarks(book._id)">
           <i class="far fa-heart"></i> 
@@ -33,7 +34,9 @@
         <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == true" (click)="removeBookToBookmarks(book._id)">
           <i class="fas fa-heart"></i>
         </a>
-
+        <a class="btn btn-primary card-link mb-4" (click)="addBookToBasket(book._id)">
+          <i class="fas fa-shopping-bag"></i>
+        </a>
 
         
         

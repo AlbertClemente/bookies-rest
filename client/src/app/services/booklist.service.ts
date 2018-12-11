@@ -15,6 +15,14 @@ export class BookListService {
     this.apiURL = GLOBAL.url;
   }
 
+  getLists(hash, page) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': hash
+    });
+    return this._http.get(this.apiURL + 'booklists/' + page, {headers: headers});
+  }
+
   saveBookList(hash, bookList: BookList) {
     const json = JSON.stringify(bookList);
     const params = json;
