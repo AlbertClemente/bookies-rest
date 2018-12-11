@@ -5,10 +5,6 @@
         <h4>Info:</h4>
         <p>{{okMessage}}</p>
       </div>
-      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-        <h4>Error:</h4>
-        <p>{{errorMessage.error.message}}</p>
-      </div>
   </div>
 </div>
 <div class="row">
@@ -40,11 +36,15 @@
           </div>
           <div class="form-group">
               <label for="bookPrice">Precio oficial</label>
-              <input #bookPrice="ngModel" name="bookPrice" [(ngModel)]="book.price" class="form-control" id="bookPrice" placeholder="Precio sin descuento" required>
+              <input #bookPrice="ngModel" name="bookPrice" [(ngModel)]="book.price" class="form-control" id="bookPrice" placeholder="Precio sin descuento" required (keyup)="priceMember(bookPrice.value)">
           </div>
           <div class="form-group">
               <label for="bookPriceMember">Precio para socios</label>
               <input type="text" #bookPriceMember="ngModel" name="bookPriceMember" [(ngModel)]="book.priceMember" class="form-control" id="bookPriceMember" placeholder="Precio con descuento" required>
+          </div>
+          <div class="form-group">
+            <label for="bookStock">Stock del producto</label>
+            <input type="text" #bookStock="ngModel" name="bookStock" [(ngModel)]="book.stock" class="form-control" id="bookStock" placeholder="Stock del producto" required>
           </div>
           <div class="form-group">
             <label for="bookImage">Portada del libro</label>
@@ -60,10 +60,12 @@
           <button type="submit" class="btn btn-primary">Editar libro</button>
         </form>
       </div>
-      <div class="col-3">
-          <img src="{{apiURL + 'get-image-book/' + book.image}}" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title" *ngIf="book.image != 'null'">
-          <img src="../../../assets/img/icon-no-image.svg" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" *ngIf="book.image == 'null'">
+      <div class="col-3" *ngIf="book.image != 'null'">
+          <img [src]="apiURL + 'get-image-book/' + book.image" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title">
       </div>
+      <div class="col-3" *ngIf="book.image == 'null'">
+        <img src="../../../assets/img/icon-no-image.svg" width="100%" height="auto" class="d-inline-block align-top img-thumbnail">
+    </div>
 </div>
 
 

@@ -47,6 +47,10 @@
                 <input type="text" #bookPriceMember="ngModel" name="bookPriceMember" [(ngModel)]="book.priceMember" class="form-control" id="bookPriceMember" placeholder="Precio con descuento" required>
             </div>
             <div class="form-group">
+              <label for="bookStock">Stock del producto</label>
+              <input type="text" #bookStock="ngModel" name="bookStock" [(ngModel)]="book.stock" class="form-control" id="bookStock" placeholder="Stock del producto" required>
+            </div>
+            <div class="form-group">
               <label for="bookAuthor">Autor</label>
               <select class="custom-select mr-sm-2" id="bookAuthor" #bookAuthor="ngModel" name="bookAuthor" [(ngModel)]="book.author">
                 <option selected>Escoge un autor...</option>

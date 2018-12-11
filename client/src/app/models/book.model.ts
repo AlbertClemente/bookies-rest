@@ -10,6 +10,7 @@ export class Book {
     public price: number,
     public priceMember: number,
     public review: number,
+    public stock: number,
     public author: string
   ) {}
 }

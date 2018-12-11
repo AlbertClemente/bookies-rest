@@ -93,6 +93,7 @@ function saveBook(req, res){
   book.price = params.price;
   book.priceMember = params.priceMember;
   book.review = params.review;
+  book.stock = params.stock;
   book.author = params.author;
 
   book.save((err, bookStored) => {

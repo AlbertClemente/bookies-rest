@@ -17,7 +17,7 @@ export class BookComponent implements OnInit {
   public idUser;
   public hash;
   public apiURL: string;
-  public book;
+  public book: Book;
   public author;
   public bookObject;
   public tokenObject;
@@ -33,10 +33,11 @@ export class BookComponent implements OnInit {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
+    this.getBook();
  }
 
   ngOnInit() {
-    this.getBook();
+
   }
 
   getBook() {
@@ -51,11 +52,13 @@ export class BookComponent implements OnInit {
             this.book = this.bookObject.book;
             this.author = this.book.author;
             console.log(this.book);
+            if (this.book.image === null) {
+              console.log('La imagen no existe');
+            }
           }
         },
         err => {
           console.log(err);
-          this.errorMessage = err;
         }
       );
     });

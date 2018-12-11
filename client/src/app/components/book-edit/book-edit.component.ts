@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { BookService } from '../../services/book.service';
@@ -13,7 +13,7 @@ import { GLOBAL } from '../../services/global';
   templateUrl: './book-edit.component.html',
   styleUrls: ['./book-edit.component.css']
 })
-export class BookEditComponent {
+export class BookEditComponent implements OnInit {
   public idUser;
   public hash;
   public apiURL: string;
@@ -37,12 +37,31 @@ export class BookEditComponent {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
-    this.book = new Book('', '', parseInt('', 10), '', '', parseInt('', 10), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
+    this.book = new Book(
+      '',
+      '',
+      parseInt('', 10),
+      '',
+      '',
+      parseInt('', 10),
+      '',
+      parseFloat(''),
+      parseFloat(''),
+      parseFloat(''),
+      parseInt('', 10),
+      ''
+    );
+    this.book.year = 2018;
+    this.book.numPages = 0;
+    this.book.price = 0;
+    this.book.priceMember = 0;
+    this.book.stock = 0;
+  }
+
+  ngOnInit() {
     this.getBook();
     this.getFullAuthorsList();
   }
-
-
   getFullAuthorsList() {
     this._authorService.getAuthorsFull(this.hash).subscribe(
       res => {
@@ -143,5 +162,10 @@ export class BookEditComponent {
       xhr.setRequestHeader('Authorization', token);
       xhr.send(formData);
     });
+  }
+
+  priceMember(bookPrice: number) {
+    this.book.priceMember = parseFloat((bookPrice - (bookPrice * 0.2)).toFixed(2));
+    return this.book.priceMember;
   }
 }

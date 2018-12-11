@@ -14,6 +14,7 @@ var BookSchema = Schema({
         price: Number,
         priceMember: Number,
         review: Number,
+        stock: Number,
         author: {type: Schema.ObjectId, ref: 'Author'}
 });
 

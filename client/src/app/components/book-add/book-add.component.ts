@@ -34,8 +34,26 @@ export class BookAddComponent implements OnInit {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
-    this.book = new Book('', '', parseInt('', 10), '', '', parseInt('', 10), '', parseFloat(''), parseFloat(''), parseFloat(''), '') ;
+    this.book = new Book(
+      '',
+      '',
+      parseInt('', 10),
+      '',
+      '',
+      parseInt('', 10),
+      '',
+      parseFloat(''),
+      parseFloat(''),
+      parseFloat(''),
+      parseInt('', 10),
+      ''
+    );
     this.getFullAuthorsList();
+    this.book.year = 2018;
+    this.book.numPages = 0;
+    this.book.price = 0;
+    this.book.priceMember = 0;
+    this.book.stock = 0;
   }
 
   ngOnInit() {
