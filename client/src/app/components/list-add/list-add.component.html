@@ -11,13 +11,13 @@
     </div>
     <form #addListForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <input type="text" #listName="ngModel" name="listName" [(ngModel)]="list.name" class="form-control" id="listName" placeholder="Nombre de la lista" required>
+        <input type="text" #listName="ngModel" name="listName" [(ngModel)]="bookList.titleList" class="form-control" id="listName" placeholder="Nombre de la lista" required>
       </div>
       <div class="form-group">
-        <input type="text" #listDescription="ngModel" name="listDescription" [(ngModel)]="list.description" class="form-control" id="listDescription" placeholder="Descripción de la lista">
+        <input type="text" #listDescription="ngModel" name="listDescription" [(ngModel)]="bookList.descriptionList" class="form-control" id="listDescription" placeholder="Descripción de la lista">
       </div>
       <div class="form-group">
-        <input type="text" #listDate="ngModel" name="listDate" [(ngModel)]="list.creationDate" class="form-control" id="listDate" placeholder="Fecha de creación de la lista">
+        <input type="text" #listDate="ngModel" name="listDate" [(ngModel)]="bookList.creationDate" class="form-control" id="listDate" placeholder="Fecha de creación de la lista">
       </div>
       <button type="submit" class="btn btn-primary">Crear lista</button>
     </form>

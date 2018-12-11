@@ -3,26 +3,27 @@
 var fs = require('fs');
 var path = require('path');
 var BookList = require('../models/booklist');
-var Book = require('../models/book');
+var User = require('../models/user');
 var mongoosePaginate = require('mongoose-pagination');
 
 function getList(req, res){
     var bookListId = req.params.id;
-
-    BookList.findById(bookListId, (err, author) => {
-        if(err){
-            res.status(500).send({message: 'Error en la petición.'});
+  
+    BookList.findById(bookListId).populate({path: 'user'}).exec((err, bookList) => {
+      if(err){
+        res.status(500).send({message: 'Error en la petición.'});
+      }
+      else{
+        if(!bookList){
+          res.status(404).send({message: 'No existe el libro.'});
         }
         else{
-            if(!author){
-                res.status(404).send({message: 'No existe la lista.'});
-            }
-            else{
-                res.status(200).send({author});
-            }
+          res.status(200).send({bookList});
         }
-    });    
+      }
+    }); 
 }
+
 
 function getLists(req, res){
     if(req.params.page){
@@ -33,18 +34,18 @@ function getLists(req, res){
     }
     var itemsPerPage = 8;
 
-    Author.find().sort('name').paginate(page, itemsPerPage, (err, authors, total) => {
+    BookList.find().sort('_id').populate({path: 'user', model: 'User'}).paginate(page, itemsPerPage, (err, bookLists, total) => {
         if(err){
             res.status(500).send({message: 'Error en la petición.'});
         }
         else{
-            if(!authors){
-                res.status(404).send({message: 'No hay artistas todavía.'});
+            if(!bookLists){
+                res.status(404).send({message: 'No hay listas todavía.'});
             }
             else{
                 res.status(200).send({
                     total_items: total,
-                    authors: authors
+                    bookLists: bookLists
                 });
             }
         }
@@ -53,69 +54,70 @@ function getLists(req, res){
 
 
 function saveList(req, res){
-    var list = new Author();
+    var bookList = new BookList();
 
     var params = req.body;
-    author.name = params.name;
-    author.surname = params.surname;
-    author.description = params.description;
+    bookList.titleList = params.titleList;
+    bookList.descriptionList = params.descriptionList;
+    bookList.creationDate = params.creationDate;
+    bookList.user = params.user;
 
-    author.save((err, authorStored) => {
+    bookList.save((err, bookListStored) => {
         if(err){
             res.status(500).send({message: 'Error en la petición.'});
         }
         else{
-            if(!authorStored){
-                res.status(404).send({message: 'No se ha podido guardar el autor.'});
+            if(!bookListStored){
+                res.status(404).send({message: 'No se ha podido guardar la lista.'});
             }
             else{
-                res.status(200).send({author: authorStored});
+                res.status(200).send({bookList: bookListStored});
             }
         }
     });
 }
 
 function updateList(req, res){
-    var authorId = req.params.id;
+    var bookListId = req.params.id;
     var update = req.body;
 
-    Author.findByIdAndUpdate(authorId, update, (err, authorUpdated) => {
+    BookList.findByIdAndUpdate(bookListId, update, (err, bookListUpdated) => {
         if(err){
             res.status(500).send({message: 'Error en la petición..'}); 
         }
         else{
-            if(!authorUpdated){
-                res.status(404).send({message: 'No se ha podido actualizar el autor.'}); 
+            if(!bookListUpdated){
+                res.status(404).send({message: 'No se ha podido actualizar la lista.'}); 
             }
             else{
-                res.status(200).send({author: authorUpdated}); 
+                res.status(200).send({bookList: bookListUpdated}); 
             }
         }
     });
 }
 
 function deleteList(req, res){
-    var authorId = req.params.id;
+    var bookListId = req.params.id;
 
-    Author.findByIdAndRemove(authorId, (err, authorRemoved) => {
+    BookList.findByIdAndRemove(bookListId, (err, bookListRemoved) => {
         if(err){
             res.status(500).send({message: 'Error en la petición.'}); 
         }
         else{
-            if(!authorRemoved){
-                res.status(404).send({message: 'No se ha podido borrar el autor.'}); 
+            if(!bookListRemoved){
+                res.status(404).send({message: 'No se ha podido borrar la lista de libros.'}); 
             }
             else{
-                Book.find({author: authorRemoved._id}).remove((err, bookRemoved) => {
+                BookList.find({user: userRemoved._id}).remove((err, bookList) => {
                     if(err){
                         res.status(500).send({message: 'Error en la petición.'}); 
                     }
                     else{
-                        if(!bookRemoved){
-                            res.status(404).send({message: 'No se ha podido borrar el autor.'}); 
+                        if(!bookList){
+                            res.status(404).send({message: 'No se ha podido borrar la lista de libros.'}); 
                         }
                         else{
-                            res.status(200).send({author: authorRemoved});
+                            res.status(200).send({user: userRemoved});
                         }
                     }
                 });

@@ -8,6 +8,7 @@ var app = express();
 var user_routes = require('./routes/user');
 var author_routes = require('./routes/author');
 var book_routes = require('./routes/book');
+var booklist_routes = require('./routes/booklist');
 
 //Convertir a objetos json
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 app.use('/api', user_routes);
 app.use('/api', author_routes);
 app.use('/api', book_routes);
+app.use('/api', booklist_routes);
 
 /*
 app.get('/pruebas', function(req, res){
