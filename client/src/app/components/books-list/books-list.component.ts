@@ -17,7 +17,7 @@ export class BooksListComponent implements OnInit {
   public apiURL;
   public book: Book;
   public bookObject;
-  public books: Book;
+  public books: Book[];
   public booksObject;
   public page;
   public next_page;
@@ -25,6 +25,11 @@ export class BooksListComponent implements OnInit {
   public bookLike: boolean;
   public errorMessage;
   public okMessage;
+
+  public quantity: number;
+
+
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -35,7 +40,7 @@ export class BooksListComponent implements OnInit {
       this.apiURL = GLOBAL.url;
       this.next_page = 1;
       this.prev_page = 1;
-
+      this.quantity = 0;
       this.bookLike = false;
   }
 
@@ -102,11 +107,17 @@ export class BooksListComponent implements OnInit {
     console.log(bookId);
   }
 
-  addBookToBasket(bookId) {
-    this.getBook(bookId);
+
+  addUnits(quantity) {
+    this.quantity = this.quantity + 1;
+    return quantity;
   }
 
-  getBook(id) {
-    console.log(id);
+  removeUnits(quantity) {
+    this.quantity = this.quantity - 1;
+    if (this.quantity <= 0) {
+      this.quantity = 0;
+    }
+    return quantity;
   }
 }

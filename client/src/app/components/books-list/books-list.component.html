@@ -34,10 +34,18 @@
         <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == true" (click)="removeBookToBookmarks(book._id)">
           <i class="fas fa-heart"></i>
         </a>
-        <a class="btn btn-primary card-link mb-4" (click)="addBookToBasket(book._id)">
-          <i class="fas fa-shopping-bag"></i>
-        </a>
-
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="{{quantity}}" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+            <div class="input-group-append">
+              <button class="btn btn-outline-success" type="button" (click)="addUnits(quantity)">+</button>
+              <button class="btn btn-outline-danger" type="button" (click)="removeUnits(quantity)">-</button>
+              <button class="btn btn-primary" [routerLink]="['/shopping-cart', {id: book._id, quantity: quantity}]">
+                <i class="fas fa-shopping-bag"></i>
+              </button>
+            </div>
+          </div>
+        </div>
         
         
         <div *ngIf="idUser.role === 'ROLE_ADMIN'">

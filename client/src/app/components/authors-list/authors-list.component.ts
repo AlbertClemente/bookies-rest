@@ -14,7 +14,7 @@ export class AuthorsListComponent implements OnInit {
   public idUser;
   public hash;
   public apiURL;
-  public authors: Author;
+  public authors: Author[];
   public authorObject;
   public page;
   public next_page;
