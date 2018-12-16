@@ -42,7 +42,7 @@ export class BookComponent implements OnInit {
     this.apiURL = GLOBAL.url;
     this.contentLoaded = false;
     this.quantity = 1;
-    this.bookOrder = new Array();
+    this.bookOrder = new Array({});
     this.getBook();
  }
 
@@ -87,5 +87,6 @@ export class BookComponent implements OnInit {
 
   toCart(book: Book, bookQuantity: number) {
     this.bookOrder.push(book, bookQuantity);
+    console.log(this.bookOrder);
   }
 }
