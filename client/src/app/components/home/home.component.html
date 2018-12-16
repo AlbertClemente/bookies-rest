@@ -5,9 +5,7 @@
     </div>
     <div class="card-body">
       <ul class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">Añadir autor</a>
-        <a href="#" class="list-group-item list-group-item-action">Modificar autor</a>
-        <a href="#" class="list-group-item list-group-item-action">Borrar autor</a>
+        <a [routerLink]="['/author-add']" class="list-group-item list-group-item-action">Añadir autor</a>
       </ul>
     </div>
   </div>
@@ -17,27 +15,13 @@
     </div>
     <div class="card-body">
       <ul class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">Añadir libro</a>
-        <a href="#" class="list-group-item list-group-item-action">Modificar libro</a>
-        <a href="#" class="list-group-item list-group-item-action">Borrar libro</a>
-      </ul>
-    </div>
-  </div>
-  <div class="card mb-4 shadow-sm">
-    <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Usuarios</h4>
-    </div>
-    <div class="card-body">
-      <ul class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">Añadir usuario</a>
-        <a href="#" class="list-group-item list-group-item-action">Modificar usuario</a>
-        <a href="#" class="list-group-item list-group-item-action">Borrar usuario</a>
+        <a [routerLink]="['/book-add']" class="list-group-item list-group-item-action">Añadir libro</a>
       </ul>
     </div>
   </div>
 </div>
 
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" *ngIf="!idUser || idUser.role === 'ROLE_USER'">
+<div id="carouselExampleControls" class="carousel slide my-5" data-ride="carousel" *ngIf="!idUser || idUser.role === 'ROLE_USER'">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src="https://dummyimage.com/1600x800/000/fff" alt="First slide">
@@ -58,5 +42,4 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
-<app-books-list></app-books-list>
+<app-login *ngIf="!idUser"></app-login>

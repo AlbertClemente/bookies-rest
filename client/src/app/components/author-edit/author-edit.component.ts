@@ -22,6 +22,7 @@ export class AuthorEditComponent implements OnInit {
   public filesToUpload: Array<File>;
   public errorMessage;
   public okMessage;
+  public contentLoaded;
 
   constructor(
       private _router: Router,
@@ -33,10 +34,12 @@ export class AuthorEditComponent implements OnInit {
       this.hash = this._userService.getHash();
       this.apiURL = GLOBAL.url;
       this.author = new Author('', '', '', '');
+      this.contentLoaded = false;
+      this.getAuthor();
    }
 
   ngOnInit() {
-    this.getAuthor();
+
   }
 
   getAuthor() {
@@ -49,6 +52,7 @@ export class AuthorEditComponent implements OnInit {
           } else {
             this.authorObject = res;
             this.author = this.authorObject.author;
+            this.contentLoaded = true;
             console.log(this.author);
           }
         },
@@ -79,6 +83,7 @@ export class AuthorEditComponent implements OnInit {
               .then(
                 (result: any) => {
                   this.author.image = result.image;
+                  this.okMessage = 'Tus datos han sido actualizados correctamente.';
                 }
               )
               .catch(err => {
@@ -86,7 +91,6 @@ export class AuthorEditComponent implements OnInit {
                 console.log(err);
               });
             }
-            this.okMessage = 'Tus datos han sido actualizados correctamente.';
           }
         },
         err => {

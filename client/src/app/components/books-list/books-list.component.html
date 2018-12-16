@@ -22,32 +22,18 @@
       <img class="card-img-top" src="{{apiURL + 'get-image-book/' + book.image}}" alt="{{book.title}}" *ngIf="book.image != 'null'">
       <img class="card-img-top" src="../../../assets/img/icon-no-image.svg" alt="" *ngIf="book.image == 'null'">
       <div class="card-body">
-        <h3 class="card-title">{{book.title}}</h3>
-        <p class="text-muted">({{book.year}})</p>
-        <p class="card-text">{{book.author.name}} {{book.author.surname}}</p>
-        <p class="card-text">{{book.price}}</p>
-        <p class="card-text">{{book.priceMember}}</p>
+        <h2 class="card-title">{{book.title}}</h2>
+        <h4 class="text-muted">({{book.year}})</h4>
+        <h5 class="card-text mb-3">{{book.author.name}} {{book.author.surname}}</h5>
+        <h5 class="card-text mb-1 text-muted officialPrice">{{book.price | currency:'EUR':true}}</h5>
+        <h3 class="card-text mb-5">{{book.priceMember | currency:'EUR':true}}</h3>
         <a class="btn btn-primary card-link mb-4" [routerLink]="['/book', book._id]">Ver libro</a>
-        <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == false" (click)="addBookToBookmarks(book._id)">
-          <i class="far fa-heart"></i> 
+        <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == false" (click)="addBookToBookmarks(book)">
+          <i class="far fa-heart"></i>
         </a>
         <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == true" (click)="removeBookToBookmarks(book._id)">
           <i class="fas fa-heart"></i>
         </a>
-        <div>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{quantity}}" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
-            <div class="input-group-append">
-              <button class="btn btn-outline-success" type="button" (click)="addUnits(quantity)">+</button>
-              <button class="btn btn-outline-danger" type="button" (click)="removeUnits(quantity)">-</button>
-              <button class="btn btn-primary" [routerLink]="['/shopping-cart', {id: book._id, quantity: quantity}]">
-                <i class="fas fa-shopping-bag"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        
         <div *ngIf="idUser.role === 'ROLE_ADMIN'">
           <button type="button" class="btn btn-outline-secondary card-link" [routerLink]="['/book-edit', book._id]">Editar libro</button>
           <button type="button" class="btn btn-outline-warning card-link" (click)="deleteBook(book._id)">Borrar libro</button>

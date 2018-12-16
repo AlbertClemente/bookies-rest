@@ -1,11 +1,58 @@
-<div class="row">
-  <div class="col-12">
-    <div class=text-center>
-      <img src="{{apiURL + 'get-image-book/' + book.image}}" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title" *ngIf="book.image != 'null'">
-      <img src="../../../assets/img/icon-no-image.svg" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title" *ngIf="book.image == 'null'">
-      <h2 class="mt-5 mb-3">{{book.title}}</h2>
-      <h4 class="mt-5 mb-3">{{author.name}} {{author.surname}}</h4>
-      <p class="lead">{{book.description}}</p>
+<div *ngIf="okMessage" class="alert alert-success" role="alert">
+  <h4>Info:</h4>
+  <p>{{okMessage}}</p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  <h4>Error:</h4>
+  <p>{{errorMessage.error.message}}</p>
+</div>
+<div class="row" *ngIf="contentLoaded">
+  <div class="col-12 mb-4">
+    <div *ngIf="idUser.role === 'ROLE_ADMIN'">
+      <button type="button" class="btn btn-outline-secondary card-link" [routerLink]="['/book-edit', book._id]">Editar libro</button>
     </div>
+    <div class=text-center>
+      <div *ngIf="book.image != 'null'">
+          <img [src]="apiURL + 'get-image-book/' + book.image" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title">
+      </div>
+      <div *ngIf="book.image == 'null'">
+          <img src="../../../assets/img/icon-no-image.svg" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title">
+      </div>
+      <h2 class="mt-5 mb-3">{{book.title}}</h2>
+      <h4 class="mt-5 mb-1">{{author.name}} {{author.surname}}</h4>
+      <h5 class="mt-1 mb-5 text-muted">{{book.publisher}} ({{book.year}})</h5>
+      <p class="lead">{{book.description}}</p>
+      <h3 *ngIf="book.stock > 0" class="my-4"><span class="badge badge-success">En stock</span></h3>
+      <h3 *ngIf="book.stock == 0" class="my-4"><span class="badge badge-danger">No hay stock</span></h3>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="contentLoaded">
+  <div class="col-6">
+      <ul class="list-group">
+        <li class="list-group-item">Género: {{book.genre}}</li>
+        <li class="list-group-item">Número de páginas: {{book.numPages}}</li>
+        <li class="list-group-item">Editorial: {{book.publisher}}</li>
+        <li class="list-group-item">Año de edición: {{book.year}}</li>
+      </ul>
+  </div>
+  <div class="col-6">
+    <h2>{{book.priceMember | currency:'EUR':true}}</h2>
+    <h4 class="text-muted officialPrice">{{book.price | currency:'EUR':true}}</h4>
+    <p>
+        ¿Quieres recibirlo el lunes, 17 de dic.? Cómpralo antes de 13 hrs 26 mins y elige Envío 1 día al completar tu pedido.
+    </p>
+    <form #buyBookForm="ngForm" (ngSubmit)="toCart(book, quantity)">
+      <div class="input-group">
+        <input type="text" #bookQuantity="ngModel" name="bookQuantity" [(ngModel)]="quantity" class="form-control" id="bookQuantity" class="form-control" value="{{quantity}}" >
+        <div class="input-group-append">
+          <button class="btn btn-outline-success" type="button" (click)="addUnits(quantity)">+</button>
+          <button class="btn btn-outline-danger" type="button" (click)="removeUnits(quantity)">-</button>
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-shopping-bag"></i>
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

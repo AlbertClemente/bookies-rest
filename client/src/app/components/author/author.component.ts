@@ -29,6 +29,7 @@ export class AuthorComponent implements OnInit {
   public tokenObject;
   public errorMessage;
   public okMessage;
+  public contentLoaded;
 
   constructor(
       private _router: Router,
@@ -43,6 +44,7 @@ export class AuthorComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.contentLoaded = false;
     this.getAuthor();
     this.getBooks();
   }
@@ -57,7 +59,7 @@ export class AuthorComponent implements OnInit {
           } else {
             this.authorObject = res;
             this.author = this.authorObject.author;
-            console.log(this.author);
+            this.contentLoaded = true;
           }
         },
         err => {
@@ -77,6 +79,7 @@ export class AuthorComponent implements OnInit {
           } else {
             this.booksObject = res;
             this.books = this.booksObject.books;
+            this.contentLoaded = true;
             console.log(this.books);
           }
         },

@@ -32,7 +32,7 @@ function getBooks(req, res){
     else{
         var page = 1;
     }
-    var itemsPerPage = 8;
+    var itemsPerPage = 9;
 
     Book.find().sort('year').populate({path: 'author', model: 'Author'}).paginate(page, itemsPerPage, (err, books, total) => {
         if(err){
@@ -78,6 +78,34 @@ function getBooksByAuthor(req, res){
         }
     });
 }
+
+function getBooksByGenre(req, res){
+    var genreBook = req.params.genre.toLowerCase();
+
+    if(!genreBook){
+        //Listar todos los libros de la bd
+        var find = Book.find({}).sort('_id');
+    }
+    else{
+        //Listar todos los libros de un mismo autor
+        var find = Book.find({genre: genreBook}).sort('year');
+    }
+
+    find.populate({path: 'author'}).exec((err, booksByGenre) => {
+        if(err){
+            res.status(500).send({message: 'Error en la petición.'});
+        }
+        else{
+            if(!booksByGenre){
+                    res.status(404).send({message: 'No hay libros todavía.'});
+            }
+            else{
+                res.status(200).send({booksByGenre}); 
+            }
+        }
+    });
+}
+
 
 function saveBook(req, res){
   var book = new Book();

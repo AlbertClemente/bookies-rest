@@ -26,6 +26,7 @@ export class BookEditComponent implements OnInit {
   public filesToUpload: Array<File>;
   public errorMessage;
   public okMessage;
+  public contentLoaded;
 
   constructor(
     private _route: ActivatedRoute,
@@ -56,11 +57,14 @@ export class BookEditComponent implements OnInit {
     this.book.price = 0;
     this.book.priceMember = 0;
     this.book.stock = 0;
+    this.contentLoaded = false;
+    this.getBook();
+    this.getFullAuthorsList();
+
   }
 
   ngOnInit() {
-    this.getBook();
-    this.getFullAuthorsList();
+
   }
   getFullAuthorsList() {
     this._authorService.getAuthorsFull(this.hash).subscribe(
@@ -89,6 +93,7 @@ export class BookEditComponent implements OnInit {
           } else {
             this.bookObject = res;
             this.book = this.bookObject.book;
+            this.contentLoaded = true;
           }
         },
         err => {
@@ -117,6 +122,7 @@ export class BookEditComponent implements OnInit {
               .then(
                 (result: any) => {
                   this.book.image = result.image;
+                  this.okMessage = 'Tus datos han sido actualizados correctamente.';
                 }
               )
               .catch(err => {
@@ -124,7 +130,6 @@ export class BookEditComponent implements OnInit {
                 console.log(err);
               });
             }
-            this.okMessage = 'Tus datos han sido actualizados correctamente.';
           }
         },
         err => {

@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="row">
-    <div class="col-9">
+    <div class="col-9" *ngIf="contentLoaded">
         <form #editBookForm="ngForm" (ngSubmit)="onSubmitEdit()">
           <div class="form-group">
             <label for="bookTitle">Título del libro</label>
@@ -60,12 +60,14 @@
           <button type="submit" class="btn btn-primary">Editar libro</button>
         </form>
       </div>
-      <div class="col-3" *ngIf="book.image != 'null'">
-          <img [src]="apiURL + 'get-image-book/' + book.image" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title">
+      <div class="col-3" *ngIf="contentLoaded">
+        <div *ngIf="book.image != 'null'">
+            <img [src]="apiURL + 'get-image-book/' + book.image" width="100%" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="book.title">
+        </div>
+        <div *ngIf="book.image == 'null'">
+          <img src="../../../assets/img/icon-no-image.svg" width="100%" height="auto" class="d-inline-block align-top img-thumbnail">
+        </div>
       </div>
-      <div class="col-3" *ngIf="book.image == 'null'">
-        <img src="../../../assets/img/icon-no-image.svg" width="100%" height="auto" class="d-inline-block align-top img-thumbnail">
-    </div>
 </div>
 
 

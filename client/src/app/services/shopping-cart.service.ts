@@ -4,8 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ShoppingCartService {
-
+  cart: any [] = [];
   constructor() {
     console.log('Shopping cart funcionando');
   }
+
+
 }

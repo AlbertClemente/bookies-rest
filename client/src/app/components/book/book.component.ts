@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { BookService } from '../../services/book.service';
+import { ShoppingCartService } from '../../services/shopping-cart.service';
+
 
 import { GLOBAL } from '../../services/global';
 
@@ -23,16 +25,24 @@ export class BookComponent implements OnInit {
   public tokenObject;
   public errorMessage;
   public okMessage;
+  public contentLoaded;
+  public bookQuantity: number;
+  public quantity: number;
+  public bookOrder;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
     private _userService: UserService,
-    private _bookService: BookService
+    private _bookService: BookService,
+    private _shoppingCartService: ShoppingCartService
   ) {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
+    this.contentLoaded = false;
+    this.quantity = 1;
+    this.bookOrder = new Array();
     this.getBook();
  }
 
@@ -51,16 +61,31 @@ export class BookComponent implements OnInit {
             this.bookObject = res;
             this.book = this.bookObject.book;
             this.author = this.book.author;
-            console.log(this.book);
-            if (this.book.image === null) {
-              console.log('La imagen no existe');
-            }
+            this.contentLoaded = true;
           }
         },
         err => {
+          this.errorMessage = err;
           console.log(err);
         }
       );
     });
+  }
+
+  addUnits(quantity) {
+    this.quantity = this.quantity + 1;
+    return quantity;
+  }
+
+  removeUnits(quantity) {
+    this.quantity = this.quantity - 1;
+    if (this.quantity <= 0) {
+      this.quantity = 0;
+    }
+    return quantity;
+  }
+
+  toCart(book: Book, bookQuantity: number) {
+    this.bookOrder.push(book, bookQuantity);
   }
 }

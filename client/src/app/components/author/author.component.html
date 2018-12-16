@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-12" *ngIf="contentLoaded">
     <div class=text-center>
       <img src="{{apiURL + 'get-image-author/' + author.image}}" width="400" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="author.name + ' ' + author.surname">
       <h2 class="mt-5 mb-3">{{author.name}} {{author.surname}}</h2>
@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
+  <div class="col-12" *ngIf="contentLoaded">
     <div class="text-center">
       <h3 class="mt-5 mb-4">Libros de {{author.name}} {{author.surname}}</h3>
     </div>
@@ -16,7 +16,7 @@
         <tbody>
           <tr *ngFor="let book of books">
             <td>
-              <img src="{{apiURL + 'get-image-book/' + book.image}}" alt="{{book.title}}" class="img-thumbnail">
+              <img [src]="apiURL + 'get-image-book/' + book.image" [alt]="book.title" class="img-thumbnail">
             </td>
             <td>{{book.title}}</td>
             <td>{{book.description}}</td>

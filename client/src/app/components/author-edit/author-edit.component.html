@@ -9,10 +9,17 @@
       <h4>Error:</h4>
       <p>{{errorMessage.error.message}}</p>
     </div>
+  </div>
+
+  <div class="col-12 mb-4" *ngIf="contentLoaded">
+    <div class="text-center mb-4" *ngIf="author.image == 'null'">
+        <img src="../../../assets/img/icon-no-image.svg" width="200" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="author.name">
+    </div>
+    <div class="text-center mb-4" *ngIf="author.image != 'null'">
+      <img src="{{apiURL + 'get-image-author/' + author.image}}" width="200" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="author.name + ' ' + author.surname">
+    </div>
+
     <form #editAuthorForm="ngForm" (ngSubmit)="onSubmitEdit()">
-      <div class="text-center mb-4">
-        <img src="{{apiURL + 'get-image-author/' + author.image}}" width="200" height="auto" class="d-inline-block align-top img-thumbnail" [alt]="author.name + ' ' + author.surname">
-      </div>
       <div class="form-group">
         <input type="text" #authorName="ngModel" name="authorName" [(ngModel)]="author.name" class="form-control" id="authorName" placeholder="Nombre del autor" required>
       </div>
@@ -26,7 +33,7 @@
           <label for="authorImage">Imagen del autor</label>
           <input type="file" class="form-control-file" id="authorImage" (change)="fileChangeEvent($event)">
         </div>
-      <button type="submit" class="btn btn-primary">Editar autor</button>
+      <button type="submit" class="btn btn-primary">Guardar cambios</button>
     </form>
   </div>
 </div>

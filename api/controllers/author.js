@@ -31,7 +31,7 @@ function getAuthors(req, res){
     else{
         var page = 1;
     }
-    var itemsPerPage = 8;
+    var itemsPerPage = 9;
 
     Author.find().sort('name').paginate(page, itemsPerPage, (err, authors, total) => {
         if(err){
