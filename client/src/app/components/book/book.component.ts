@@ -9,6 +9,7 @@ import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { GLOBAL } from '../../services/global';
 
 import { Book } from './../../models/book.model';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-book',
@@ -28,7 +29,7 @@ export class BookComponent implements OnInit {
   public contentLoaded;
   public bookQuantity: number;
   public quantity: number;
-  public bookOrder;
+  public bookOrder: Order;
 
   constructor(
     private _router: Router,
@@ -42,7 +43,6 @@ export class BookComponent implements OnInit {
     this.apiURL = GLOBAL.url;
     this.contentLoaded = false;
     this.quantity = 1;
-    this.bookOrder = [];
     this.getBook();
  }
 
@@ -85,8 +85,10 @@ export class BookComponent implements OnInit {
     return quantity;
   }
 
-  toCart(book: Book, bookQuantity: number) {
-    this.bookOrder.push([book, bookQuantity]);
+  buyBook(book, quantity) {
+    this.bookOrder = new Order(book, quantity);
     console.log(this.bookOrder);
+    this._shoppingCartService.toCart(this.bookOrder);
   }
+
 }

@@ -42,7 +42,7 @@
     <p>
         ¿Quieres recibirlo el lunes, 17 de dic.? Cómpralo antes de 13 hrs 26 mins y elige Envío 1 día al completar tu pedido.
     </p>
-    <form #buyBookForm="ngForm" (ngSubmit)="toCart(book, quantity)">
+    <form #buyBookForm="ngForm" (ngSubmit)="buyBook(book, quantity)">
       <div class="input-group">
         <input type="text" #bookQuantity="ngModel" name="bookQuantity" [(ngModel)]="quantity" class="form-control" id="bookQuantity" class="form-control" value="{{quantity}}" >
         <div class="input-group-append">
