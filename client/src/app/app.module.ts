@@ -25,6 +25,7 @@ import { BookComponent } from './components/book/book.component';
 import { ListAddComponent } from './components/list-add/list-add.component';
 import { ListsListComponent } from './components/lists-list/lists-list.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CounterComponent } from './components/shared/counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     BookComponent,
     ListAddComponent,
     ListsListComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,

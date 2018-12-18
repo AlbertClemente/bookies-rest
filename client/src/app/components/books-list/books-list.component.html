@@ -25,8 +25,8 @@
         <h2 class="card-title">{{book.title}}</h2>
         <h4 class="text-muted">({{book.year}})</h4>
         <h5 class="card-text mb-3">{{book.author.name}} {{book.author.surname}}</h5>
-        <h5 class="card-text mb-1 text-muted officialPrice">{{book.price | currency:'EUR':true}}</h5>
-        <h3 class="card-text mb-5">{{book.priceMember | currency:'EUR':true}}</h3>
+        <h5 class="card-text mb-1 text-muted officialPrice">{{book.price | currency:'EUR':'symbol'}}</h5>
+        <h3 class="card-text mb-5">{{book.priceMember | currency:'EUR':'symbol'}}</h3>
         <a class="btn btn-primary card-link mb-4" [routerLink]="['/book', book._id]">Ver libro</a>
         <a class="btn btn-primary card-link mb-4" *ngIf="bookLike == false" (click)="addBookToBookmarks(book)">
           <i class="far fa-heart"></i>

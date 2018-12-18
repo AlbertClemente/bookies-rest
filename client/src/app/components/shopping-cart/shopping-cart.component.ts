@@ -1,12 +1,9 @@
+import { Order } from './../../models/order.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { BookService } from 'src/app/services/book.service';
 import { UserService } from 'src/app/services/user.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
-
-import { Product } from '../../entities/product.entity';
-import { Item } from '../../entities/item.entity';
 
 import { GLOBAL } from '../../services/global';
 
@@ -20,21 +17,41 @@ export class ShoppingCartComponent implements OnInit {
   public idUser;
   public hash;
   public apiURL;
-  private items: Item[] = [];
-  private totalPrice = 0;
+  public orders: Order [] = [];
+  public subtotals: number [] = [];
+  public totalPrice = 0;
+  public totalPriceIVA = 0;
   constructor(
     private _route: ActivatedRoute,
-    private _shoppingCart: ShoppingCartService,
-    private _bookService: BookService,
+    private _shoppingCartService: ShoppingCartService,
     private _userService: UserService
   ) {
     this.idUser = this._userService.getIdUser();
     this.hash = this._userService.getHash();
     this.apiURL = GLOBAL.url;
+    this.getSubTotals();
+    this.getTotal(this.subtotals);
   }
 
   ngOnInit() {
 
   }
 
+  getSubTotals() {
+    this.orders = this._shoppingCartService.getCart();
+    this.orders.forEach(
+      elem => {
+        this.subtotals.push(parseFloat((elem.book.priceMember * elem.quantity).toFixed(2)));
+        return this.subtotals;
+      }
+    );
+  }
+
+  getTotal (subtotals) {
+    for (let index = 0; index < subtotals.length; index++) {
+      this.totalPrice += subtotals[index];
+    }
+    // IVA
+    this.totalPriceIVA = this.totalPrice + (this.totalPrice * 0.21);
+  }
 }

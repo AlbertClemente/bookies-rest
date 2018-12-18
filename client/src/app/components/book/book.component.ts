@@ -87,7 +87,6 @@ export class BookComponent implements OnInit {
 
   buyBook(book, quantity) {
     this.bookOrder = new Order(book, quantity);
-    console.log(this.bookOrder);
     this._shoppingCartService.toCart(this.bookOrder);
   }
 

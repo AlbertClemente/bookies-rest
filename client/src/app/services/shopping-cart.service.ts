@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Cart } from '../models/cart.model';
 import { Order } from '../models/order.model';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
   cart: Cart = new Cart();
-  cartAux: Cart;
+  public cartValue = 0;
 
   constructor() {
     console.log('Shopping cart funcionando');
@@ -15,8 +17,11 @@ export class ShoppingCartService {
 
   toCart(order: Order) {
     this.cart.orders.push(order);
-    this.cartAux = this.cart;
-    console.log(this.cart);
-    console.log(this.cartAux);
   }
+
+  getCart() {
+    console.log(this.cart.orders);
+    return this.cart.orders;
+  }
+
 }

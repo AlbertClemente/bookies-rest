@@ -1,3 +1,40 @@
-<p>
-  shopping-cart works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <table class="table" *ngIf="subtotals.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">#id</th>
+          <th scope="col">Título</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio unitario</th>
+          <th scope="col">Precio total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders; let i = index">
+          <th scope="row">{{order.book._id}}</th>
+          <td>{{order.book.title}}</td>
+          <td>{{order.quantity}}</td>
+          <td>{{order.book.priceMember | currency:'EUR':'symbol'}}</td>
+          <td>{{subtotals[i] | currency:'EUR':'symbol'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-center text-muted" *ngIf="subtotals.length === 0">No hay productos añadidos al carrito.</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="subtotals.length > 0">
+  <div class="col-12">
+    <table class="text-left mt-5">
+      <tbody>
+        <tr>
+          <td><h3>{{totalPrice | currency:'EUR':'symbol'}}</h3></td>
+        </tr>
+        <tr>
+          <td><h5 class="text-muted">{{totalPriceIVA | currency:'EUR':'symbol'}}. IVA incluído.</h5></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
