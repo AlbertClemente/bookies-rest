@@ -2,8 +2,8 @@ import { Order } from './../../models/order.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { UserService } from 'src/app/services/user.service';
-import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { UserService } from '../../services/user.service';
+import { ShoppingCartService } from '../../services/shopping-cart.service';
 
 import { GLOBAL } from '../../services/global';
 

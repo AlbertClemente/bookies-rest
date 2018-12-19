@@ -3,8 +3,6 @@ import { UserService } from '../../../services/user.service';
 import { GLOBAL } from '../../../services/global';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { CounterComponent } from '../counter/counter.component';
-
 
 @Component({
   selector: 'app-nav',
